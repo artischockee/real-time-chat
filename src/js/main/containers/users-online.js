@@ -45,7 +45,7 @@ export default class UsersOnlineContainer extends React.Component {
     return false;
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('UsersOnline updated.');
   }
 

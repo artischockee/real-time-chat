@@ -73,7 +73,7 @@ export default class LoginBoxContainer extends React.Component {
     this.props.handleInputChange(event);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('LoginBox updated.');
   }
 

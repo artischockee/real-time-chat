@@ -31,7 +31,7 @@ export default class FooterContainer extends React.Component {
     super(props);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Footer updated.');
   }
 

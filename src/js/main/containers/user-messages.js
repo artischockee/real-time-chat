@@ -14,7 +14,7 @@ export default class UserMessagesContainer extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('UserMessages updated.');
   }
 

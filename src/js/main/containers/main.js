@@ -124,6 +124,11 @@ export default class MainContainer extends React.Component {
     });
   }
 
+  chatHandleMessageBoxEnterKeyPress(event) {
+    if (!this.state.controlsAreFrozen && event.key === 'Enter')
+      this.sendMessage();
+  }
+
   chatHandleLoginBoxChange(event) {
     let keyName = event.target.name;
 
@@ -136,7 +141,7 @@ export default class MainContainer extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Main updated.');
   }
 
@@ -149,6 +154,7 @@ export default class MainContainer extends React.Component {
         chatHandleLoginBoxChange={this.chatHandleLoginBoxChange}
         chatHandleMessageSending={this.sendMessage}
         chatHandleMessageBoxChange={this.chatHandleMessageBoxChange}
+        chatHandleMessageBoxEnterKeyPress={this.chatHandleMessageBoxEnterKeyPress}
         chatMessages={this.state.chatMessages}
         chatMessageValue={this.state.message}
         loginBoxUserData={this.state.userData}
