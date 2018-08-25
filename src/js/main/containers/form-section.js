@@ -69,17 +69,17 @@ export default class FormSectionContainer extends React.Component {
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.inputValue !== this.props.inputValue
-    || nextState.inputInFocus !== this.state.inputInFocus
-    || nextProps.highlightedDueToError !== this.props.highlightedDueToError
-    || nextProps.inputName !== this.props.inputName)
-      return true;
-    else
-      return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextProps.inputValue !== this.props.inputValue
+  //   || nextState.inputInFocus !== this.state.inputInFocus
+  //   || nextProps.highlightedDueToError !== this.props.highlightedDueToError
+  //   || nextProps.inputName !== this.props.inputName)
+  //     return true;
+  //   else
+  //     return false;
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log(`FormSection (${prevProps.inputName}) updated.`);
   }
 
