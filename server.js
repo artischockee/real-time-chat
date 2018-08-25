@@ -1,0 +1,155 @@
+import http from 'http';
+import express from 'express';
+import Router from 'express';
+import path from 'path';
+
+const port = 8080;
+
+let router = Router();
+
+router.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+const app = express();
+
+app.use('/', router);
+app.use(express.static(__dirname + '/'));
+
+// app.listen(port);
+
+const server = http.createServer(app);
+
+server.listen(port);
+
+
+// WebSocketServer:
+
+import { server as WebSocketServer } from 'websocket';
+
+let connectionArray = [];
+let nextID = Date.now();
+let appendToMakeUnique = 1;
+
+let wsServer = new WebSocketServer({
+  httpServer: server,
+  autoAcceptConnections: true // do not use in real prod.
+});
+
+// seems like this listener is never getting called
+wsServer.on('request', (request) => {
+  console.log((new Date()) + ' Connection from origin ' + request.origin);
+});
+
+wsServer.on('connect', (connection) => {
+  console.log((new Date()) + " Connection accepted.");
+
+  connectionArray.push(connection);
+
+  connection.clientID = nextID++;
+
+  let message = {
+    type: "ID",
+    id: connection.clientID
+  };
+
+  connection.sendUTF(JSON.stringify(message));
+
+  connection.on('message', (message) => {
+    if (message.type !== 'utf8')
+      return;
+
+    console.log('Received message: ' + message.utf8Data);
+
+    let parsedMessage = JSON.parse(message.utf8Data);
+    let connect = getConnectionForID(parsedMessage.id);
+
+    switch (parsedMessage.type) {
+      case "MESSAGE":
+        parsedMessage.login = connect.clientLogin;
+        parsedMessage.sign = connect.clientSign;
+        break;
+      case "USERDATA":
+        let loginChanged = false;
+        let originalLogin = parsedMessage.login;
+
+        while (!isClientLoginUnique(parsedMessage.login)) {
+          parsedMessage.login = originalLogin + '_' + appendToMakeUnique++;
+          loginChanged = true;
+        }
+
+        if (loginChanged) {
+          // There is no need to pass a sign or smth other,
+          // because only login is used just for a notification
+          // about changed login (due to a non-unique original login)
+          let changeMessage = {
+            id: parsedMessage.id,
+            type: "REJECT_USERDATA",
+            login: parsedMessage.login
+          };
+
+          connect.sendUTF(JSON.stringify(changeMessage));
+        }
+
+        connect.clientLogin = parsedMessage.login;
+        connect.clientSign = parsedMessage.sign;
+        sendUserListToAll();
+        break;
+    }
+
+    let messageString = JSON.stringify(parsedMessage);
+    sendToAllConnections(messageString);
+  });
+
+  connection.on('close', (connection) => {
+    connectionArray = connectionArray.filter(connection => connection.connected);
+
+    sendUserListToAll();
+
+    console.log((new Date()) + " Peer " + connection.remoteAddress + " disconnected.");
+  });
+});
+
+// function originIsAllowed(origin) {
+//   // this is where should ensure the connection should be accepted. return false if it should not be.
+//   return true;
+// }
+
+function isClientLoginUnique(name) {
+  return !connectionArray.some(connection => connection.clientLogin === name);
+}
+
+function getConnectionForID(id) {
+  let result = connectionArray.find(c => c.clientID === id);
+
+  return result === undefined ? null : result;
+}
+
+function makeUserListMessage() {
+  let userListMessage = {
+    type: 'USERLIST',
+    users: []
+  };
+
+  connectionArray.forEach(connection => {
+    userListMessage.users.push({
+      login: connection.clientLogin,
+      sign: connection.clientSign
+    });
+  });
+
+  return userListMessage;
+}
+
+function sendUserListToAll() {
+  let userListMessage = makeUserListMessage();
+  let userListMessageString = JSON.stringify(userListMessage);
+
+  sendToAllConnections(userListMessageString);
+}
+
+function sendToAllConnections(stringifiedData) {
+  connectionArray.forEach(connection => {
+    connection.sendUTF(stringifiedData);
+  });
+}

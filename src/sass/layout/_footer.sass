@@ -1,0 +1,42 @@
+.footer
+  @extend %flex-row-wrap
+  justify-content: center
+
+  &__navigation
+    @extend %flex-col-nowrap
+    color: $color-white
+    padding: 1em 2em
+
+  .unordered-list
+    @extend %flex-row-wrap
+    @extend %reset-margin-padding
+
+    &__list-item
+      display: inline-flex
+      margin-right: 2em
+
+      &:last-child
+        margin-right: 0
+
+    &__anchor
+      @extend %flex-row-nowrap
+      justify-content: center
+      color: currentColor
+      position: relative
+      text-decoration: none
+      transition: color 250ms ease-out
+
+      &:hover
+        color: $color-black-light
+
+      &::after
+        content: ''
+        position: absolute
+        width: 0
+        height: .125em
+        background-color: currentColor
+        bottom: 0
+        transition: width 250ms ease-out
+
+      &:hover::after
+        width: 100%
