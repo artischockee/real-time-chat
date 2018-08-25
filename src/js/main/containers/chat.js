@@ -94,10 +94,12 @@ export default class ChatContainer extends React.Component {
     this.setState({
       displayLoginBox: false
     });
-
     this.props.handleConnect();
   }
 
+  // WARNING:
+  // DEPRECATED FUNCTION!
+  // USE getDerivedStateFromProps() INSTEAD
   componentWillReceiveProps(nextProps) {
     if (nextProps.messages === undefined
     || nextProps.messages.length == 0)
@@ -118,23 +120,14 @@ export default class ChatContainer extends React.Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   // may be BUG'gy
-  //   if (nextState.lastMessageClientID !== this.state.lastMessageClientID)
-  //     return false;
-  //
-  //   return true;
-  // }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Chat updated.');
 
     console.log(':: at DIDUPDATE ::');
 
     console.log('DIDUPDATE: clientID: ' + prevProps.clientID);
     console.log('DIDUPDATE: lastMessageClientID: ' + prevState.lastMessageClientID);
-
-    // so bad, but it works:
+    console.log('DIDUPDATE: current messageClient ID: ' + this.state.lastMessageClientID);
 
     if (prevProps.clientID !== prevState.lastMessageClientID)
       return;
@@ -148,6 +141,7 @@ export default class ChatContainer extends React.Component {
       <Chat
         controlsAreFrozen={this.props.controlsAreFrozen}
         handleMessageBoxChange={this.props.handleMessageBoxChange}
+        handleMessageBoxEnterKeyPress={this.props.handleMessageBoxEnterKeyPress}
         handleMessageSending={this.props.handleMessageSending}
         loginBoxContainer={this.getLoginBoxContainer()}
         messages={this.getUserMessages()}
