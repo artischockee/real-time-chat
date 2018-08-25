@@ -7,17 +7,17 @@ import FooterContainer from './footer/containers/footer';
 
 @autobind
 class App extends React.Component {
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('App updated.');
   }
 
   render() {
     return (
-      <div className="root">
+      <React.Fragment>
         <HeaderContainer />
         <MainContainer />
         <FooterContainer />
-      </div>
+      </React.Fragment>
     );
   }
 }
