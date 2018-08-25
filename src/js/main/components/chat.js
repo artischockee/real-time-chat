@@ -15,7 +15,17 @@ const Chat = (props) => {
       </div>
 
       <div className="section-footer">
-        <input className="chat__input" id="chat-input" type="text" placeholder="Write your message.." onChange={props.handleMessageBoxChange} value={props.messageValue} disabled={props.controlsAreFrozen} />
+        <input
+          className="chat__input"
+          id="chat-input"
+          type="text"
+          placeholder="Write your message.."
+          onChange={props.handleMessageBoxChange}
+          value={props.messageValue}
+          disabled={props.controlsAreFrozen}
+          autoFocus
+          onKeyUp={props.handleMessageBoxEnterKeyPress}
+        />
         <button className="chat__button" type="button" id="chat-button" onClick={props.handleMessageSending} disabled={props.controlsAreFrozen}>Send</button>
       </div>
 
