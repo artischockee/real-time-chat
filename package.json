@@ -6,7 +6,7 @@
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.dev.js",
-    "babel": "babel --watch server-express.js -o dist/server.js"
+    "babel": "babel --watch server.js -o dist/server.js"
   },
   "author": "Artem Piskarev",
   "license": "ISC",
