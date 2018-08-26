@@ -27,9 +27,9 @@ server.listen(port);
 
 import { server as WebSocketServer } from 'websocket';
 
+const APPEND_TO_MAKE_UNIQUE = 1;
 let connectionArray = [];
 let nextID = Date.now();
-let appendToMakeUnique = 1;
 
 let wsServer = new WebSocketServer({
   httpServer: server,
@@ -65,16 +65,13 @@ wsServer.on('connect', (connection) => {
     let connect = getConnectionForID(parsedMessage.id);
 
     switch (parsedMessage.type) {
-      case "MESSAGE":
-        parsedMessage.login = connect.clientLogin;
-        parsedMessage.sign = connect.clientSign;
-        break;
       case "USERDATA":
         let loginChanged = false;
         let originalLogin = parsedMessage.login;
+        let appender = APPEND_TO_MAKE_UNIQUE;
 
         while (!isClientLoginUnique(parsedMessage.login)) {
-          parsedMessage.login = originalLogin + '_' + appendToMakeUnique++;
+          parsedMessage.login = originalLogin + '_' + appender++;
           loginChanged = true;
         }
 
@@ -93,7 +90,13 @@ wsServer.on('connect', (connection) => {
 
         connect.clientLogin = parsedMessage.login;
         connect.clientSign = parsedMessage.sign;
+        connect.clientImage = parsedMessage.image;
         sendUserListToAll();
+        break;
+      case "MESSAGE":
+        parsedMessage.login = connect.clientLogin;
+        parsedMessage.sign = connect.clientSign;
+        parsedMessage.image = connect.clientImage;
         break;
     }
 
@@ -134,7 +137,8 @@ function makeUserListMessage() {
   connectionArray.forEach(connection => {
     userListMessage.users.push({
       login: connection.clientLogin,
-      sign: connection.clientSign
+      sign: connection.clientSign,
+      image: connection.clientImage
     });
   });
 
