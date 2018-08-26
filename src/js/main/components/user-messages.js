@@ -5,12 +5,16 @@ const UserMessages = (props) => {
   return (
     <div className="user-messages">
       <div className="user-messages__image-wrapper">
-        <img className="user-messages__image" src='images/blank-avatar.jpg' />
+        <img
+          className="user-messages__image"
+          src={props.image}
+          alt={`${props.login}\'s avatar`}
+        />
       </div>
       <div className="user-messages__data-wrapper">
         <div className="user-messages__line-wrapper">
           <h3 className="name">{props.login}</h3>
-          <p className="sign">{props.sign}</p>
+          {props.signElement}
           <p className="message-time">{props.time}</p>
         </div>
         <ul className="messages-bunch">
@@ -22,10 +26,11 @@ const UserMessages = (props) => {
 };
 
 UserMessages.propTypes = {
+  image: PropTypes.string.isRequired,
   login: PropTypes.string.isRequired,
-  sign: PropTypes.string,
-  time: PropTypes.string.isRequired,
-  messages: PropTypes.arrayOf(PropTypes.object).isRequired
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  signElement: PropTypes.object,
+  time: PropTypes.string.isRequired
 };
 
 export default UserMessages;

@@ -14,6 +14,13 @@ export default class UserMessagesContainer extends React.Component {
     });
   }
 
+  getSignElement() {
+    if (this.props.sign !== '')
+      return <p className="sign">{this.props.sign}</p>;
+    else
+      return null;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('UserMessages updated.');
   }
@@ -21,9 +28,10 @@ export default class UserMessagesContainer extends React.Component {
   render() {
     return (
       <UserMessages
+        image={this.props.image}
         login={this.props.login}
         messages={this.getMessages()}
-        sign={this.props.sign}
+        signElement={this.getSignElement()}
         time={this.props.time}
       />
     );
