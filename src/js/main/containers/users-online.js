@@ -3,8 +3,6 @@ import autobind from 'autobind-decorator';
 import UsersOnline from '../components/users-online';
 import UserContainer from './user';
 
-const TEMP_IMAGE_SRC = 'images/blank-avatar.jpg';
-
 @autobind
 export default class UsersOnlineContainer extends React.Component {
   constructor(props) {
@@ -30,7 +28,7 @@ export default class UsersOnlineContainer extends React.Component {
         <UserContainer
           name={item.login}
           sign={item.sign}
-          imgSrc={TEMP_IMAGE_SRC}
+          imgSrc={item.image}
           key={index}
         />
       )
@@ -45,15 +43,11 @@ export default class UsersOnlineContainer extends React.Component {
     return false;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('UsersOnline updated.');
-  }
-
   render() {
     return (
       <UsersOnline
         classList={this.getClassList()}
-        usersData={this.getUsersList()}
+        usersList={this.getUsersList()}
         currentlyOnline={this.props.userList.length}
       />
     );
