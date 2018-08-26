@@ -34,8 +34,6 @@ export default class LoginBoxContainer extends React.Component {
   }
 
   handleConnect(event) {
-    console.log('handleConnect (LoginBox)');
-
     event.preventDefault();
 
     // TODO: Check for every state keys that are according to inputs.
@@ -71,10 +69,6 @@ export default class LoginBoxContainer extends React.Component {
     }
 
     this.props.handleInputChange(event);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('LoginBox updated.');
   }
 
   render() {
