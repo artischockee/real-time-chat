@@ -11,7 +11,7 @@ const UsersOnline = (props) => {
 
       <div className="section-main">
         <ul className="users-list">
-          {props.usersData}
+          {props.usersList}
         </ul>
       </div>
 
@@ -25,7 +25,7 @@ const UsersOnline = (props) => {
 UsersOnline.propTypes = {
   classList: PropTypes.string.isRequired,
   currentlyOnline: PropTypes.number.isRequired,
-  usersData: PropTypes.arrayOf(PropTypes.object)
+  usersList: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default UsersOnline;
