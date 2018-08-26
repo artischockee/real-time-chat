@@ -9,7 +9,7 @@ const User = (props) => {
       </div>
       <div className="user__info-wrapper">
         <h3 className="user__name">{props.name}</h3>
-        <p className="user__sign">{props.sign}</p>
+        {props.signElement}
       </div>
     </li>
   );
@@ -18,7 +18,7 @@ const User = (props) => {
 User.propTypes = {
   imgSrc: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  sign: PropTypes.string
+  signElement: PropTypes.object
 };
 
 export default User;

@@ -8,6 +8,13 @@ export default class UserContainer extends React.Component {
     super(props);
   }
 
+  getSignElement() {
+    if (this.props.sign !== '')
+      return <p className="user__sign">{this.props.sign}</p>;
+    else
+      return null;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('User updated.');
   }
@@ -16,7 +23,7 @@ export default class UserContainer extends React.Component {
     return (
       <User
         name={this.props.name}
-        sign={this.props.sign}
+        signElement={this.getSignElement()}
         imgSrc={this.props.imgSrc}
       />
     );
