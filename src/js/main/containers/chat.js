@@ -24,7 +24,10 @@ export default class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.chatWindowRef = React.createRef();
+
     this.state = {
+      chatAttachedToEnd: true,
       displayLoginBox: true,
       lastMessageClientID: 0
       // displayLoginBox: false // ONLY FOR DEV!
@@ -62,6 +65,7 @@ export default class ChatContainer extends React.Component {
         combinedUserMessages.push({
           date: item.date,
           id: item.id,
+          image: item.image,
           login: item.login,
           sign: item.sign,
           text: item.text instanceof Array ? [...item.text] : [item.text]
@@ -80,6 +84,7 @@ export default class ChatContainer extends React.Component {
       let time = assemblyMessageDate(item.date);
       return (
         <UserMessagesContainer
+          image={item.image}
           key={index}
           login={item.login}
           messages={item.text}
@@ -97,43 +102,39 @@ export default class ChatContainer extends React.Component {
     this.props.handleConnect();
   }
 
-  // WARNING:
-  // DEPRECATED FUNCTION!
-  // USE getDerivedStateFromProps() INSTEAD
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.messages === undefined
-    || nextProps.messages.length == 0)
+  handleScroll() {
+    let chatWindow = this.chatWindowRef.current;
+
+    let chatAttachedToEnd =
+      chatWindow.scrollTop + chatWindow.clientHeight === chatWindow.scrollHeight;
+
+    // Escape render() spamming while scrolling the chat:
+    if (this.state.chatAttachedToEnd === chatAttachedToEnd)
       return;
 
-    console.log(':: at WILLRECEIVEPROPS ::');
+    this.setState({ chatAttachedToEnd });
+  }
 
-    let lastMessageClientID = nextProps.messages[nextProps.messages.length - 1].id;
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.chatAttachedToEnd !== this.state.chatAttachedToEnd)
+      return false;
 
-    console.log('WILLRECEIVEPROPS: clientID: ' + nextProps.clientID);
-    console.log('WILLRECEIVEPROPS: lastMessageClientID: ' + lastMessageClientID);
-
-    if (nextProps.clientID !== lastMessageClientID) {
-      console.warn('WILLRECEIVEPROPS: clientID !== lastMessageClientID');
-      this.setState({
-        lastMessageClientID
-      });
-    }
+    return true;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Chat updated.');
 
-    console.log(':: at DIDUPDATE ::');
+    if (prevProps.messages.length === this.props.messages.length) return;
 
-    console.log('DIDUPDATE: clientID: ' + prevProps.clientID);
-    console.log('DIDUPDATE: lastMessageClientID: ' + prevState.lastMessageClientID);
-    console.log('DIDUPDATE: current messageClient ID: ' + this.state.lastMessageClientID);
+    let chatWindow = this.chatWindowRef.current;
 
-    if (prevProps.clientID !== prevState.lastMessageClientID)
-      return;
-
-    let chatWindow = document.querySelector('.chat .section-main');
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    if (
+      this.props.clientID === this.props.messages[this.props.messages.length - 1].id
+      || this.state.chatAttachedToEnd
+    ) {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
   }
 
   render() {
@@ -143,9 +144,11 @@ export default class ChatContainer extends React.Component {
         handleMessageBoxChange={this.props.handleMessageBoxChange}
         handleMessageBoxEnterKeyPress={this.props.handleMessageBoxEnterKeyPress}
         handleMessageSending={this.props.handleMessageSending}
+        handleScroll={this.handleScroll}
         loginBoxContainer={this.getLoginBoxContainer()}
         messages={this.getUserMessages()}
         messageValue={this.props.messageValue}
+        windowRef={this.chatWindowRef}
       />
     );
   }
