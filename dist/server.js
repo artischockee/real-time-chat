@@ -43,9 +43,9 @@ server.listen(port);
 
 // WebSocketServer:
 
+var APPEND_TO_MAKE_UNIQUE = 1;
 var connectionArray = [];
 var nextID = Date.now();
-var appendToMakeUnique = 1;
 
 var wsServer = new _websocket.server({
   httpServer: server,
@@ -80,16 +80,13 @@ wsServer.on('connect', function (connection) {
     var connect = getConnectionForID(parsedMessage.id);
 
     switch (parsedMessage.type) {
-      case "MESSAGE":
-        parsedMessage.login = connect.clientLogin;
-        parsedMessage.sign = connect.clientSign;
-        break;
       case "USERDATA":
         var loginChanged = false;
         var originalLogin = parsedMessage.login;
+        var appender = APPEND_TO_MAKE_UNIQUE;
 
         while (!isClientLoginUnique(parsedMessage.login)) {
-          parsedMessage.login = originalLogin + '_' + appendToMakeUnique++;
+          parsedMessage.login = originalLogin + '_' + appender++;
           loginChanged = true;
         }
 
@@ -108,7 +105,13 @@ wsServer.on('connect', function (connection) {
 
         connect.clientLogin = parsedMessage.login;
         connect.clientSign = parsedMessage.sign;
+        connect.clientImage = parsedMessage.image;
         sendUserListToAll();
+        break;
+      case "MESSAGE":
+        parsedMessage.login = connect.clientLogin;
+        parsedMessage.sign = connect.clientSign;
+        parsedMessage.image = connect.clientImage;
         break;
     }
 
@@ -155,7 +158,8 @@ function makeUserListMessage() {
   connectionArray.forEach(function (connection) {
     userListMessage.users.push({
       login: connection.clientLogin,
-      sign: connection.clientSign
+      sign: connection.clientSign,
+      image: connection.clientImage
     });
   });
 
@@ -185,19 +189,19 @@ function sendToAllConnections(stringifiedData) {
     return;
   }
 
-  reactHotLoader.register(port, 'port', 'server-express.js');
-  reactHotLoader.register(router, 'router', 'server-express.js');
-  reactHotLoader.register(app, 'app', 'server-express.js');
-  reactHotLoader.register(server, 'server', 'server-express.js');
-  reactHotLoader.register(connectionArray, 'connectionArray', 'server-express.js');
-  reactHotLoader.register(nextID, 'nextID', 'server-express.js');
-  reactHotLoader.register(appendToMakeUnique, 'appendToMakeUnique', 'server-express.js');
-  reactHotLoader.register(wsServer, 'wsServer', 'server-express.js');
-  reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'server-express.js');
-  reactHotLoader.register(getConnectionForID, 'getConnectionForID', 'server-express.js');
-  reactHotLoader.register(makeUserListMessage, 'makeUserListMessage', 'server-express.js');
-  reactHotLoader.register(sendUserListToAll, 'sendUserListToAll', 'server-express.js');
-  reactHotLoader.register(sendToAllConnections, 'sendToAllConnections', 'server-express.js');
+  reactHotLoader.register(port, 'port', 'server.js');
+  reactHotLoader.register(router, 'router', 'server.js');
+  reactHotLoader.register(app, 'app', 'server.js');
+  reactHotLoader.register(server, 'server', 'server.js');
+  reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'server.js');
+  reactHotLoader.register(connectionArray, 'connectionArray', 'server.js');
+  reactHotLoader.register(nextID, 'nextID', 'server.js');
+  reactHotLoader.register(wsServer, 'wsServer', 'server.js');
+  reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'server.js');
+  reactHotLoader.register(getConnectionForID, 'getConnectionForID', 'server.js');
+  reactHotLoader.register(makeUserListMessage, 'makeUserListMessage', 'server.js');
+  reactHotLoader.register(sendUserListToAll, 'sendUserListToAll', 'server.js');
+  reactHotLoader.register(sendToAllConnections, 'sendToAllConnections', 'server.js');
   leaveModule(module);
 })();
 
