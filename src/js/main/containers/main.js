@@ -14,6 +14,12 @@ const MSG_TYPES = {
   REJECT_USERDATA: 'REJECT_USERDATA'
 };
 
+function getRandomUserImageSrc() {
+  let imageNumber = Math.floor(Math.random() * 20) + 1;
+
+  return `images/avatars/${imageNumber}.jpg`;
+}
+
 @autobind
 export default class MainContainer extends React.Component {
   constructor(props) {
@@ -25,7 +31,8 @@ export default class MainContainer extends React.Component {
       message: '',
       userData: {
         login: '',
-        sign: ''
+        sign: '',
+        image: ''
       },
       usersOnline: [],
       chatMessages: [],
@@ -36,12 +43,19 @@ export default class MainContainer extends React.Component {
   }
 
   applyLoginBoxData() {
+    let userData = this.state.userData;
+    if (userData.image === '')
+      userData.image = getRandomUserImageSrc();
+
+    this.setState({ userData });
+
     let message = {
       type: MSG_TYPES.USERDATA,
       date: Date.now(),
       id: this.state.clientID,
       login: this.state.userData.login,
-      sign: this.state.userData.sign
+      sign: this.state.userData.sign,
+      image: this.state.userData.image
     };
 
     this.state.connection.send(JSON.stringify(message));
@@ -56,8 +70,6 @@ export default class MainContainer extends React.Component {
     let connection = new WebSocket(SERVER_URL);
 
     connection.onopen = (event) => {
-      console.log('WS: Connection OPEN event.');
-
       this.setState({
         controlsAreFrozen: false,
         onlineSectionHidden: false
@@ -72,8 +84,9 @@ export default class MainContainer extends React.Component {
     connection.onmessage = (event) => {
       let message = JSON.parse(event.data);
 
-      console.log('WS: MESSAGE data:');
-      console.log(message);
+      // DEV (for reducing redundant output in other userwindow):
+      if (message.id === this.state.clientID)
+        console.log(message);
 
       switch (message.type) {
         case MSG_TYPES.ID:
@@ -83,7 +96,7 @@ export default class MainContainer extends React.Component {
         case MSG_TYPES.USERLIST:
           this.setState({
             usersOnline: message.users
-          })
+          });
           break;
         case MSG_TYPES.MESSAGE:
           let chatMessages = [...this.state.chatMessages, message];
@@ -95,14 +108,12 @@ export default class MainContainer extends React.Component {
       }
     };
 
-    this.setState({
-      connection
-    });
+    this.setState({ connection });
   }
 
   sendMessage() {
     if (this.state.message === '') {
-      console.warn('Nothing to send.');
+      console.warn('Nothing to send.'); // TODO: replace it with UI notification
       return;
     }
 
@@ -132,13 +143,11 @@ export default class MainContainer extends React.Component {
   chatHandleLoginBoxChange(event) {
     let keyName = event.target.name;
 
-    let key = this.state.userData;
+    let userData = this.state.userData;
 
-    key[keyName] = event.target.value;
+    userData[keyName] = event.target.value;
 
-    this.setState({
-      userData: key
-    });
+    this.setState({ userData });
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
