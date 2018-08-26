@@ -10,21 +10,20 @@ const Chat = (props) => {
         <h1 className="section-header__h1">Chat</h1>
       </div>
 
-      <div className="section-main">
+      <div className="section-main" ref={props.windowRef} onScroll={props.handleScroll}>
         {props.messages}
       </div>
 
       <div className="section-footer">
         <input
           className="chat__input"
-          id="chat-input"
-          type="text"
-          placeholder="Write your message.."
-          onChange={props.handleMessageBoxChange}
-          value={props.messageValue}
           disabled={props.controlsAreFrozen}
-          autoFocus
+          id="chat-input"
+          onChange={props.handleMessageBoxChange}
           onKeyUp={props.handleMessageBoxEnterKeyPress}
+          placeholder="Write your message.."
+          type="text"
+          value={props.messageValue}
         />
         <button className="chat__button" type="button" id="chat-button" onClick={props.handleMessageSending} disabled={props.controlsAreFrozen}>Send</button>
       </div>
