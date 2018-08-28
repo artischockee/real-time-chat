@@ -4,344 +4,41 @@
   margin-bottom: auto
   position: relative
 
-  .section-header, .section-footer
+  .line-top, .line-bottom
     background-color: $color-white
     font-size: 1em
     padding: .75em .5em
 
-  .section-header__h1, .section-footer__h2
+  .line-top__section-title, .line-bottom__online
     @extend %reset-margin-padding
     color: $color-black-light
     line-height: 1
     text-align: center
 
-  .section-header
+  .line-top
     border-bottom: .0625em solid lighten($color-black-light, 50%)
 
-    &__h1
+    &__section-title
       font-size: 1.25em
       font-weight: 500
 
-  .section-main
+  .main-section
     flex: auto
     overflow-y: auto
 
-  .section-footer
+  .line-bottom
     border-top: .0625em solid lighten($color-black-light, 50%)
 
-    &__h2
+    &__online
       font-size: 1em
       font-weight: 500
 
 .users-online, .chat
   background-color: rgba(255,255,255,.9)
   box-shadow: 0 .5em 1em rgba(16, 16, 16, .2)
-  height: 60vh
+  height: 36em
 
-.users-online
-  @extend %flex-col-nowrap
-  margin-right: 4em
-  width: 25em
-
-  &_hidden
-    margin-right: 0
-    visibility: hidden
-    width: 0
-
-  &_visible
-    animation: test 1.5s ease-out forwards
-    transform-origin: right
-
-  .users-list
-    @extend %reset-margin-padding
-    padding: .5em 0
-
-    &__user
-      @extend %flex-row-nowrap
-      align-items: center
-      list-style: none
-      padding: .5em 1em
-      position: relative
-      margin-bottom: .5em
-
-      &::before, &::after
-        background-color: transparent
-        content: ''
-        height: .0625em
-        left: 0
-        position: absolute
-        transition: background-color 250ms ease-out
-        width: 100%
-
-      &::before
-        top: 0
-
-      &::after
-        bottom: 0
-
-      &:hover::before, &:hover::after
-        background-color: lighten($color-black-light, 65%)
-
-      &:last-child
-        margin-bottom: 0
-
-      .user
-        &__image-wrapper
-          border-radius: 50%
-          margin-right: 1em
-          overflow: hidden
-          width: 3em
-
-        &__image
-          display: block
-          height: auto
-          width: 100%
-
-        &__info-wrapper
-          @extend %flex-col-nowrap
-          color: $color-black-light
-          flex: auto
-          justify-content: center
-
-        &__name, &__sign
-          @extend %reset-margin-padding
-
-        &__name
-          font-size: 1em
-          line-height: 1.5
-
-        &__sign
-          font-size: .9em
-
-.chat
-  @extend %flex-col-nowrap
-  position: relative
-  width: 60em
-
-  .section-main
-    // It would be an equal paddings (for bottom as well
-    // as for the other sides), but Firefox says 'no' and ignores
-    // padding-bottom applying to .user-messages in it.
-    padding: 1em 1em 0
-
-    .user-messages
-      @extend %flex-row-nowrap
-      align-items: flex-start
-      margin-bottom: 1em
-
-      // &:last-of-type
-        margin-bottom: 0
-
-      &__image-wrapper
-        border-radius: 50%
-        margin-right: 1em
-        min-width: 3em
-        overflow: hidden
-        width: 3em
-
-      &__image
-        display: block
-        height: auto
-        width: 100%
-
-      &__line-wrapper
-        @extend %flex-row-wrap
-        align-items: center
-        margin-bottom: .4em
-
-      &__data-wrapper
-        @extend %flex-col-nowrap
-
-      .name
-        @extend %reset-margin-padding
-        color: $color-black-light
-        font-size: 1em
-        font-weight: 600
-        margin-right: 1em
-
-      .sign
-        @extend %reset-margin-padding
-        color: $color-black-lighter
-        font-size: 1em
-        margin-right: 1em
-
-        &::before, &::after
-          content: ' / '
-
-      .message-time
-        @extend %reset-margin-padding
-        color: $color-black-light
-        font-size: 1em
-
-      .messages-bunch
-        @extend %reset-margin-padding
-
-        .message
-          color: $color-black-light
-          list-style: none
-          margin-bottom: .4em
-
-  .section-footer
-    @extend %flex-row-wrap
-    min-height: 2.5em
-    padding: 0
-
-  &__input
-    border: none
-    flex: auto
-    font-size: 1em
-    font-family: $font-stack
-    outline: none
-    padding: .5em
-    transition: background-color 300ms ease-out
-
-    &:focus
-      background-color: darken($color-white, 3%)
-
-  &__button
-    background-color: $color-silver
-    border: none
-    border-left: .0625em solid lighten($color-black-light, 50%)
-    color: $color-gray
-    cursor: pointer
-    font-family: $font-stack
-    font-size: 1em
-    font-weight: normal
-    outline: none
-    padding: .657em 1.5em
-    transition: background-color 300ms ease-out
-
-    &:hover
-      background-color: lighten($color-silver, 6%)
-
-    &:active
-      background-color: darken($color-silver, 6%)
-
-  // Gradients for :disabled pseudo-class
-  $color-grad-first: darken($color-white, 3%)
-  $color-grad-second: darken($color-white, 6%)
-
-  &__input:disabled, &__button:disabled
-    background: repeating-linear-gradient(45deg, $color-grad-first 0, $color-grad-first .5em, $color-grad-second .5em, $color-grad-second 1em)
-    cursor: not-allowed
-
-.login-box
-  @extend %flex-col-wrap
-  align-items: center
-  background-color: rgba(250, 250, 250, 1)
-  box-sizing: border-box
-  height: 100%
-  left: 0
-  opacity: 1
-  padding: 2em
-  position: absolute
-  top: 0
-  transition-duration: 750ms
-  transition-property: visibility, opacity
-  transition-timing-function: ease-out
-  visibility: visible
-  width: 100%
-
-  &_fade-out
-    opacity: 0
-    visibility: hidden
-
-  &__heading
-    @extend %reset-margin-padding
-    color: $color-black-lighter
-    font-size: 3em
-    line-height: 1.5
-    margin: .5em 0
-
-  &__form
-    @extend %flex-col-wrap
-    flex: auto
-
-  .submit-button
-    align-self: center
-    background-color: $color-black-lighter
-    border: none
-    border-radius: 1.5em
-    color: $color-white
-    cursor: pointer
-    font-family: $font-stack
-    font-size: 1em
-    font-weight: 500
-    margin-top: auto
-    outline: none
-    padding: 1em 2em
-    transition: background-color 400ms ease-out
-
-    &:hover
-      background-color: $color-black-light
-
-.form-section
-  @extend %flex-col-wrap
-  margin-bottom: 2em
-
-  &:last-child
-    margin-bottom: 0
-
-  &__label
-    align-self: baseline
-    color: lighten($color-black-light, 40%)
-    font-size: 1em
-    left: 1em
-    line-height: 1.5
-    margin-top: 0
-    pointer-events: none
-    position: relative
-    top: 1.8em
-    transition-duration: 250ms
-    transition-property: top, left, color
-    transition-timing-function: ease-out
-
-    &_replaced
-      color: $color-black-light
-      left: 0
-      top: 0
-
-    &_highlighted
-      color: $color-hlight-red
-
-    .span-optional
-      color: lighten($color-black-light, 55%)
-      font-size: .9em
-      font-style: italic
-
-      &::before
-        content: '- '
-
-  &__input
-    background-color: rgba(250, 250, 250, 1)
-    border: none
-    border-bottom: .0625em solid lighten($color-black-light, 50%)
-    box-sizing: border-box
-    color: $color-black-lighter
-    font-size: 1.25em
-    line-height: 1
-    outline: none
-    padding: .25em .75em .5em
-    transition: border-bottom-color 250ms ease-out
-    width: 100%
-
-    &:focus
-      border-bottom-color: $color-black-light
-
-    &_highlighted
-      border-bottom-color: $color-hlight-red
-
-  &__description
-    @extend %reset-margin-padding
-    color: lighten($color-black-light, 50%)
-    display: inline-flex
-    font-size: .9em
-    margin-top: .75em
-    max-width: 24em
-    transition: color 250ms ease-out
-
-    &_highlighted
-      color: lighten($color-hlight-red, 15%)
-
-    &_empty
-      margin: 0
+@import "main/users-online"
+@import "main/chat"
+@import "main/login-box"
+@import "main/form-section"
