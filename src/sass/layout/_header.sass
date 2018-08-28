@@ -5,8 +5,15 @@
   font-size: 1em
   font-weight: 400
 
-  // tmp
-  h1
+  &__title, &__description
     @extend %reset-margin-padding
-    font-size: 4em
     font-weight: 500
+    line-height: 1.5
+
+  &__title
+    font-size: 4em
+
+  &__description
+    font-size: 1em
+    letter-spacing: .1em
+    text-transform: uppercase
