@@ -7,6 +7,20 @@ import FooterContainer from './footer/containers/footer';
 
 @autobind
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      footerMayBeDisabled: false
+    };
+  }
+
+  confirmLogIn() {
+    this.setState({
+      footerMayBeDisabled: true
+    });
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('App updated.');
   }
@@ -15,8 +29,8 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <HeaderContainer />
-        <MainContainer />
-        <FooterContainer />
+        <MainContainer confirmLogIn={this.confirmLogIn} />
+        <FooterContainer mayBeDisabled={this.state.footerMayBeDisabled} />
       </React.Fragment>
     );
   }
