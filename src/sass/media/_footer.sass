@@ -1,0 +1,34 @@
++media-maxw(768px)
+  .footer
+
+    &_may-be-disabled
+      display: none
+
+    .unordered-list
+
+      &__anchor
+        transition: none
+
+        &:hover
+          color: inherit
+
+        &::after
+          display: none
+          height: 0
+          background-color: unset
+          transition: none
+
+        &:hover::after
+          width: inherit
+
++media-maxw(360px)
+  .footer
+
+    &__navigation
+      padding: 1em 1em
+
+    .unordered-list
+
+      &__list-item
+        font-size: .9em
+        margin-right: 1em

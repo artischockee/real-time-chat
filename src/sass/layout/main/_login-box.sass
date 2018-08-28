@@ -1,0 +1,49 @@
+.login-box
+  @extend %flex-col-wrap
+  align-items: center
+  background-color: rgba(250, 250, 250, 1)
+  box-sizing: border-box
+  height: 100%
+  left: 0
+  opacity: 1
+  padding: 2em
+  position: absolute
+  top: 0
+  transition-duration: 750ms
+  transition-property: visibility, opacity
+  transition-timing-function: ease-out
+  visibility: visible
+  width: 100%
+
+  &_fade-out
+    opacity: 0
+    visibility: hidden
+
+  &__title
+    @extend %reset-margin-padding
+    color: $color-black-lighter
+    font-size: 3em
+    line-height: 1.5
+    margin: .5em 0
+
+  &__form
+    @extend %flex-col-wrap
+    flex: auto
+
+  .submit
+    align-self: center
+    background-color: $color-black-lighter
+    border: none
+    border-radius: 1.5em
+    color: $color-white
+    cursor: pointer
+    font-family: $font-stack
+    font-size: 1em
+    font-weight: 500
+    margin-top: auto
+    outline: none
+    padding: 1em 2em
+    transition: background-color 400ms ease-out
+
+    &:hover
+      background-color: $color-black-light

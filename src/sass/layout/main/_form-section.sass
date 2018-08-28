@@ -1,0 +1,70 @@
+.form-section
+  @extend %flex-col-wrap
+  margin-bottom: 2em
+
+  &:last-child
+    margin-bottom: 0
+
+  &__label
+    align-self: baseline
+    color: lighten($color-black-light, 40%)
+    font-size: 1em
+    left: 1em
+    line-height: 1.5
+    margin-top: 0
+    pointer-events: none
+    position: relative
+    top: 1.8em
+    transition-duration: 250ms
+    transition-property: top, left, color
+    transition-timing-function: ease-out
+
+    &_replaced
+      color: $color-black-light
+      left: 0
+      top: 0
+
+    &_highlighted
+      color: $color-hlight-red
+
+    .span-optional
+      color: lighten($color-black-light, 55%)
+      font-size: .9em
+      font-style: italic
+
+      &::before
+        content: '- '
+
+  &__input
+    background-color: rgba(250, 250, 250, 1)
+    border: none
+    border-bottom: .0625em solid lighten($color-black-light, 50%)
+    box-sizing: border-box
+    color: $color-black-lighter
+    font-size: 1.25em
+    line-height: 1
+    outline: none
+    padding: .25em .75em .5em
+    transition: border-bottom-color 250ms ease-out
+    width: 100%
+
+    &:focus
+      border-bottom-color: $color-black-light
+
+    &_highlighted
+      border-bottom-color: $color-hlight-red
+
+  &__description
+    @extend %reset-margin-padding
+    color: lighten($color-black-light, 50%)
+    display: inline-flex
+    font-size: .9em
+    margin-top: .75em
+    max-width: 24em
+    transition: color 250ms ease-out
+
+    &_highlighted
+      color: lighten($color-hlight-red, 15%)
+
+    &_empty
+      margin: 0
