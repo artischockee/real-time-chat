@@ -25,6 +25,9 @@ export default class MainContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    // This isn't used
+    this.mainRef = React.createRef();
+
     this.state = {
       connection: null,
       clientID: 0,
@@ -109,6 +112,8 @@ export default class MainContainer extends React.Component {
     };
 
     this.setState({ connection });
+
+    this.props.confirmLogIn();
   }
 
   sendMessage() {
@@ -152,6 +157,27 @@ export default class MainContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Main updated.');
+
+    if (prevState.onlineSectionHidden !== this.state.onlineSectionHidden) {
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+      // WARNING: the next code does not work properly
+      // because of animated 'users-online' section, that
+      // interrupt the code calculating the offsetTop correctly.
+
+      // let mainOffsetTop = this.mainRef.current.offsetTop;
+
+      // setTimeout(() => {
+      //   window.scrollTo({
+      //     top: mainOffsetTop,
+      //     behavior: 'smooth'
+      //   });
+      // }, 2000);
+    }
   }
 
   render() {
@@ -167,6 +193,7 @@ export default class MainContainer extends React.Component {
         chatMessages={this.state.chatMessages}
         chatMessageValue={this.state.message}
         loginBoxUserData={this.state.userData}
+        mainRef={this.mainRef}
         onlineSectionHidden={this.state.onlineSectionHidden}
         onlineSectionUsersOnline={this.state.usersOnline}
       />
