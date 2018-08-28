@@ -31,13 +31,22 @@ export default class FooterContainer extends React.Component {
     super(props);
   }
 
+  getClassList() {
+    let className = 'footer';
+
+    if (this.props.mayBeDisabled)
+      className += ' footer_may-be-disabled';
+
+    return className;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('Footer updated.');
   }
 
   render() {
     return (
-      <Footer listData={listItems} />
+      <Footer classList={this.getClassList()} listData={listItems} />
     );
   }
 }
