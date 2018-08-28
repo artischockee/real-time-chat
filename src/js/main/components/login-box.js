@@ -6,7 +6,7 @@ const LoginBox = (props) => {
   return (
     <div className={props.classList}>
 
-      <h1 className="login-box__heading">Log in to continue</h1>
+      <h1 className="login-box__title">Log in to continue</h1>
 
       <form action="" id="login-box-form" className="login-box__form">
 
@@ -41,7 +41,7 @@ const LoginBox = (props) => {
           </div> */
         }
 
-        <input className="submit-button" form="login-box-form" type="submit" id="submit-and-connect" value="Log in" onClick={props.handleConnect} />
+        <input className="submit" form="login-box-form" type="submit" id="submit-and-connect" value="Log in" onClick={props.handleConnect} />
 
       </form>
 

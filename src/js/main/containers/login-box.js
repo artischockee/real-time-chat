@@ -7,8 +7,6 @@ export default class LoginBoxContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.className = 'login-box';
-
     // The user's data (login and sign values) holds in Main
 
     this.state = {
@@ -25,7 +23,7 @@ export default class LoginBoxContainer extends React.Component {
   }
 
   getClassList() {
-    let classList = this.className;
+    let classList = 'login-box';
 
     if (this.state.fadeOutBeforeUnmount)
       classList += ` ${classList}_fade-out`;

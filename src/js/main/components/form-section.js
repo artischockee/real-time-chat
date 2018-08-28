@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FormSection = (props) => {
   return (
-    <div className={props.className}>
+    <div className='form-section'>
       <label className={props.labelClassList} htmlFor={props.inputID}>
         {props.labelValue} {props.labelOptionalSpan}
       </label>
@@ -27,7 +27,6 @@ const FormSection = (props) => {
 };
 
 FormSection.propTypes = {
-  className: PropTypes.string.isRequired,
   description: PropTypes.string,
   descriptionClassList: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,

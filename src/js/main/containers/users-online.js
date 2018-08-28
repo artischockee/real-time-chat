@@ -5,14 +5,8 @@ import UserContainer from './user';
 
 @autobind
 export default class UsersOnlineContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.className = 'users-online';
-  }
-
   getClassList() {
-    let classList = this.className;
+    let classList = 'users-online';
 
     if (this.props.hidden)
       classList += ` ${classList}_hidden`;
@@ -47,8 +41,8 @@ export default class UsersOnlineContainer extends React.Component {
     return (
       <UsersOnline
         classList={this.getClassList()}
-        usersList={this.getUsersList()}
         currentlyOnline={this.props.userList.length}
+        usersList={this.getUsersList()}
       />
     );
   }

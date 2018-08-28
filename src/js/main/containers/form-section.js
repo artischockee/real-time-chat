@@ -7,8 +7,6 @@ export default class FormSectionContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.className = 'form-section';
-
     this.state = {
       inputInFocus: false
     };
@@ -22,7 +20,7 @@ export default class FormSectionContainer extends React.Component {
   }
 
   getDescriptionClassList() {
-    let classList = `${this.className}__description`;
+    let classList = 'form-section__description';
 
     if (
       this.props.description === ''
@@ -38,7 +36,7 @@ export default class FormSectionContainer extends React.Component {
   }
 
   getLabelClassList() {
-    let classList = `${this.className}__label`;
+    let classList = 'form-section__label';
 
     if (this.state.inputInFocus)
       classList += ` ${classList}_replaced`;
@@ -50,7 +48,7 @@ export default class FormSectionContainer extends React.Component {
   }
 
   getInputClassList() {
-    let classList = `${this.className}__input`;
+    let classList = 'form-section__input';
 
     if (this.props.highlightedDueToError)
       classList += ` ${classList}_highlighted`;
@@ -72,7 +70,6 @@ export default class FormSectionContainer extends React.Component {
   render() {
     return (
       <FormSection
-        className={this.className}
         description={this.props.description}
         descriptionClassList={this.getDescriptionClassList()}
         handleChange={this.props.handleChange}

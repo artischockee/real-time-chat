@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Footer = (props) => {
   return (
-    <footer className="footer">
+    <footer className={props.classList}>
       <nav className="footer__navigation">
         <ul className="unordered-list">
           {props.listData}
@@ -14,6 +14,7 @@ const Footer = (props) => {
 };
 
 Footer.propTypes = {
+  classList: PropTypes.string.isRequired,
   listData: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
