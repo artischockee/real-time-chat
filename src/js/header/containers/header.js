@@ -8,10 +8,6 @@ export default class HeaderContainer extends React.Component {
     super(props);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('Header updated.');
-  }
-
   render() {
     return (
       <Header />
