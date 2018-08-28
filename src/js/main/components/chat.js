@@ -6,15 +6,15 @@ const Chat = (props) => {
     <section className="chat">
       {props.loginBoxContainer}
 
-      <div className="section-header">
-        <h1 className="section-header__h1">Chat</h1>
+      <div className="line-top">
+        <h1 className="line-top__section-title">Chat</h1>
       </div>
 
-      <div className="section-main" ref={props.windowRef} onScroll={props.handleScroll}>
+      <div className="main-section" ref={props.windowRef} onScroll={props.handleScroll}>
         {props.messages}
       </div>
 
-      <div className="section-footer">
+      <div className="line-bottom">
         <input
           className="chat__input"
           disabled={props.controlsAreFrozen}

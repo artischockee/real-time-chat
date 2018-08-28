@@ -5,18 +5,18 @@ const UsersOnline = (props) => {
   return (
     <section className={props.classList}>
 
-      <div className="section-header">
-        <h1 className="section-header__h1">Users online</h1>
+      <div className="line-top">
+        <h1 className="line-top__section-title">Users online</h1>
       </div>
 
-      <div className="section-main">
+      <div className="main-section">
         <ul className="users-list">
           {props.usersList}
         </ul>
       </div>
 
-      <div className="section-footer">
-        <h2 className="section-footer__h2">Currently online: <span>{props.currentlyOnline}</span></h2>
+      <div className="line-bottom">
+        <h2 className="line-bottom__online">Currently online: <span>{props.currentlyOnline}</span></h2>
       </div>
     </section>
   );
