@@ -3,7 +3,7 @@ import express from 'express';
 import Router from 'express';
 import path from 'path';
 
-// const port = 8080;
+const PORT = process.env.PORT;
 
 let router = Router();
 
@@ -11,15 +11,14 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const app = express();
+let app = express();
 
 app.use('/', router);
 app.use(express.static(__dirname + '/'));
 
-const server = http.createServer(app);
+let server = http.createServer(app);
 
-// server.listen(port);
-server.listen();
+server.listen(PORT);
 
 
 // WebSocketServer:

@@ -22,7 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   enterModule && enterModule(module);
 })();
 
-// const port = 8080;
+var PORT = process.env.PORT;
 
 var router = (0, _express2.default)();
 
@@ -37,8 +37,7 @@ app.use(_express2.default.static(__dirname + '/'));
 
 var server = _http2.default.createServer(app);
 
-// server.listen(port);
-server.listen();
+server.listen(PORT);
 
 // WebSocketServer:
 
@@ -188,6 +187,7 @@ function sendToAllConnections(stringifiedData) {
     return;
   }
 
+  reactHotLoader.register(PORT, 'PORT', 'server.js');
   reactHotLoader.register(router, 'router', 'server.js');
   reactHotLoader.register(app, 'app', 'server.js');
   reactHotLoader.register(server, 'server', 'server.js');
