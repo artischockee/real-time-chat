@@ -16,11 +16,10 @@ const app = express();
 app.use('/', router);
 app.use(express.static(__dirname + '/'));
 
-// app.listen(port);
-
 const server = http.createServer(app);
 
 server.listen(port);
+// server.listen();
 
 
 // WebSocketServer:

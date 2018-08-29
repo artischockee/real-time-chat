@@ -35,11 +35,11 @@ var app = (0, _express2.default)();
 app.use('/', router);
 app.use(_express2.default.static(__dirname + '/'));
 
-// app.listen(port);
-
 var server = _http2.default.createServer(app);
 
 server.listen(port);
+// server.listen();
+
 
 // WebSocketServer:
 
