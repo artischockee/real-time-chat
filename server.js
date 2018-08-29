@@ -3,7 +3,7 @@ import express from 'express';
 import Router from 'express';
 import path from 'path';
 
-const port = 8080;
+// const port = 8080;
 
 let router = Router();
 
@@ -18,8 +18,8 @@ app.use(express.static(__dirname + '/'));
 
 const server = http.createServer(app);
 
-server.listen(port);
-// server.listen();
+// server.listen(port);
+server.listen();
 
 
 // WebSocketServer:
