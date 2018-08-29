@@ -3,8 +3,9 @@ import autobind from 'autobind-decorator';
 import Main from '../components/main';
 
 const HOSTNAME = window.location.hostname;
-const PORT = 8080;
-const SERVER_URL = `ws://${HOSTNAME}:${PORT}`;
+const PORT = window.location.port;
+const WS_PROTOCOL = 'wss'; // 'ws' for http, 'wss' for https
+const SERVER_URL = `${WS_PROTOCOL}://${HOSTNAME}:${PORT}`;
 
 const MSG_TYPES = {
   MESSAGE: 'MESSAGE',
