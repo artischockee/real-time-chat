@@ -1,4 +1,7 @@
 {
+  "name": "real-time-chat",
+  "description": "A quite simple real-time chat built with React + Node.js",
+  "version": "1.0.0",
   "main": "server.js",
   "private": true,
   "engines": {
