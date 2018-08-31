@@ -4,8 +4,9 @@ import Main from '../components/main';
 
 const HOSTNAME = window.location.hostname;
 const PORT = window.location.port;
-const WS_PROTOCOL = 'wss'; // 'ws' for http, 'wss' for https
-const SERVER_URL = `${WS_PROTOCOL}://${HOSTNAME}:${PORT}`;
+const PROTOCOL = window.location.protocol;
+const WS_PROTOCOL = PROTOCOL === 'http:' ? 'ws:' : 'wss:';
+const SERVER_URL = `${WS_PROTOCOL}//${HOSTNAME}:${PORT}`;
 
 const MSG_TYPES = {
   MESSAGE: 'MESSAGE',
@@ -193,6 +194,7 @@ export default class MainContainer extends React.Component {
         chatHandleMessageBoxEnterKeyPress={this.chatHandleMessageBoxEnterKeyPress}
         chatMessages={this.state.chatMessages}
         chatMessageValue={this.state.message}
+        lang={this.props.lang}
         loginBoxUserData={this.state.userData}
         mainRef={this.mainRef}
         onlineSectionHidden={this.state.onlineSectionHidden}
