@@ -1,9 +1,8 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import { hot } from 'react-hot-loader';
-import HeaderContainer from './header/containers/header';
-import MainContainer from './main/containers/main';
-import FooterContainer from './footer/containers/footer';
+import AppComponent from './app_component';
+import LangChooserContainer from './language-chooser/lang-chooser';
 
 @autobind
 class App extends React.Component {
@@ -11,7 +10,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      footerMayBeDisabled: false
+      displayLangChooser: true,
+      footerMayBeDisabled: false,
+      language: 'en'
     };
   }
 
@@ -21,17 +22,40 @@ class App extends React.Component {
     });
   }
 
+  handleLangChooserSubmit(language) {
+    if (language === '')
+      return;
+
+    this.setState({ language });
+
+    setTimeout(() => {
+      this.setState({ displayLangChooser: false });
+    }, 1000);
+  }
+
+  showLangChooser() {
+    if (this.state.displayLangChooser)
+      return (
+        <LangChooserContainer
+          handleSubmit={this.handleLangChooserSubmit}
+        />
+      );
+
+    return null;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('App updated.');
   }
 
   render() {
     return (
-      <React.Fragment>
-        <HeaderContainer />
-        <MainContainer confirmLogIn={this.confirmLogIn} />
-        <FooterContainer mayBeDisabled={this.state.footerMayBeDisabled} />
-      </React.Fragment>
+      <AppComponent
+        confirmLogIn={this.confirmLogIn}
+        footerMayBeDisabled={this.state.footerMayBeDisabled}
+        langChooserElement={this.showLangChooser()}
+        language={this.state.language}
+      />
     );
   }
 }
