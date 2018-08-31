@@ -8,6 +8,7 @@ const Main = (props) => {
     <main className="main" ref={props.mainRef}>
       <UsersOnlineContainer
         hidden={props.onlineSectionHidden}
+        lang={props.lang}
         userList={props.onlineSectionUsersOnline}
       />
       <ChatContainer
@@ -18,6 +19,7 @@ const Main = (props) => {
         handleMessageBoxChange={props.chatHandleMessageBoxChange}
         handleMessageBoxEnterKeyPress={props.chatHandleMessageBoxEnterKeyPress}
         handleMessageSending={props.chatHandleMessageSending}
+        lang={props.lang}
         loginBoxUserData={props.loginBoxUserData}
         messages={props.chatMessages}
         messageValue={props.chatMessageValue}

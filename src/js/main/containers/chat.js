@@ -19,6 +19,21 @@ function assemblyMessageDate(rawDate) {
   return `${hours}:${minutes}`;
 }
 
+const TITLE = {
+  en: 'Chat',
+  ru: 'Чат'
+};
+
+const PLACEHOLDER = {
+  en: 'Write your message..',
+  ru: 'Напишите сообщение..'
+};
+
+const SEND = {
+  en: 'Send',
+  ru: 'Отправить'
+};
+
 @autobind
 export default class ChatContainer extends React.Component {
   constructor(props) {
@@ -40,6 +55,7 @@ export default class ChatContainer extends React.Component {
         <LoginBoxContainer
           handleConnect={this.handleConnect}
           handleInputChange={this.props.handleLoginBoxChange}
+          lang={this.props.lang}
           userData={this.props.loginBoxUserData}
         />
       );
@@ -148,6 +164,9 @@ export default class ChatContainer extends React.Component {
         loginBoxContainer={this.getLoginBoxContainer()}
         messages={this.getUserMessages()}
         messageValue={this.props.messageValue}
+        placeholder={PLACEHOLDER[this.props.lang]}
+        send={SEND[this.props.lang]}
+        title={TITLE[this.props.lang]}
         windowRef={this.chatWindowRef}
       />
     );

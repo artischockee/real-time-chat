@@ -6,32 +6,35 @@ const LoginBox = (props) => {
   return (
     <div className={props.classList}>
 
-      <h1 className="login-box__title">Log in to continue</h1>
+      <h1 className="login-box__title">{props.title}</h1>
 
-      <form action="" id="login-box-form" className="login-box__form">
+      <form action="" id="login-box-form"
+        className="login-box__form" onSubmit={props.handleConnect}>
 
         <FormSectionContainer
-          labelValue="Login"
+          description={props.formLogin.description}
+          handleChange={props.handleChange}
+          highlightedDueToError={props.loginData.highlighted}
           inputID="input-login"
           inputName="login"
           inputType="text"
           inputValue={props.loginValue}
-          handleChange={props.handleChange}
-          highlightedDueToError={props.loginData.highlighted}
           isRequired={props.loginData.isRequired}
-          description="Could be your name, initials, nickname, etc."
+          lang={props.lang}
+          labelValue={props.formLogin.label}
         />
 
         <FormSectionContainer
-          labelValue="Sign"
+          description={props.formSign.description}
+          handleChange={props.handleChange}
+          highlightedDueToError={props.signData.highlighted}
           inputID="input-sign"
           inputName="sign"
           inputType="text"
           inputValue={props.signValue}
-          handleChange={props.handleChange}
-          highlightedDueToError={props.signData.highlighted}
           isRequired={props.signData.isRequired}
-          description="Could be your status, position, or simply your current mood - the choise is up to you."
+          lang={props.lang}
+          labelValue={props.formSign.label}
         />
 
         {
@@ -41,7 +44,7 @@ const LoginBox = (props) => {
           </div> */
         }
 
-        <input className="submit" form="login-box-form" type="submit" id="submit-and-connect" value="Log in" onClick={props.handleConnect} />
+        <input className="submit" form="login-box-form" type="submit" id="submit-and-connect" value={props.submit} />
 
       </form>
 

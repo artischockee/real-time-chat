@@ -3,6 +3,16 @@ import autobind from 'autobind-decorator';
 import UsersOnline from '../components/users-online';
 import UserContainer from './user';
 
+const TITLE = {
+  en: 'Users online',
+  ru: 'Пользователи в сети'
+};
+
+const ONLINE = {
+  en: 'Currently online',
+  ru: 'Текущий онлайн'
+};
+
 @autobind
 export default class UsersOnlineContainer extends React.Component {
   getClassList() {
@@ -42,6 +52,8 @@ export default class UsersOnlineContainer extends React.Component {
       <UsersOnline
         classList={this.getClassList()}
         currentlyOnline={this.props.userList.length}
+        online={ONLINE[this.props.lang]}
+        title={TITLE[this.props.lang]}
         usersList={this.getUsersList()}
       />
     );

@@ -6,7 +6,7 @@ const UsersOnline = (props) => {
     <section className={props.classList}>
 
       <div className="line-top">
-        <h1 className="line-top__section-title">Users online</h1>
+        <h1 className="line-top__section-title">{props.title}</h1>
       </div>
 
       <div className="main-section">
@@ -16,7 +16,7 @@ const UsersOnline = (props) => {
       </div>
 
       <div className="line-bottom">
-        <h2 className="line-bottom__online">Currently online: <span>{props.currentlyOnline}</span></h2>
+        <h2 className="line-bottom__online">{props.online}: <span>{props.currentlyOnline}</span></h2>
       </div>
     </section>
   );

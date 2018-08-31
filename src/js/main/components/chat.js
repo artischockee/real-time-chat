@@ -7,7 +7,7 @@ const Chat = (props) => {
       {props.loginBoxContainer}
 
       <div className="line-top">
-        <h1 className="line-top__section-title">Chat</h1>
+        <h1 className="line-top__section-title">{props.title}</h1>
       </div>
 
       <div className="main-section" ref={props.windowRef} onScroll={props.handleScroll}>
@@ -21,11 +21,18 @@ const Chat = (props) => {
           id="chat-input"
           onChange={props.handleMessageBoxChange}
           onKeyUp={props.handleMessageBoxEnterKeyPress}
-          placeholder="Write your message.."
+          placeholder={props.placeholder}
           type="text"
           value={props.messageValue}
         />
-        <button className="chat__button" type="button" id="chat-button" onClick={props.handleMessageSending} disabled={props.controlsAreFrozen}>Send</button>
+        <button
+          className="chat__button"
+          type="button"
+          id="chat-button"
+          onClick={props.handleMessageSending}
+          disabled={props.controlsAreFrozen}>
+          {props.send}
+        </button>
       </div>
 
     </section>
