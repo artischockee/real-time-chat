@@ -3,27 +3,17 @@ import autobind from 'autobind-decorator';
 import Footer from '../components/footer';
 
 class ListItem {
-  constructor(label) {
+  constructor(label, href = '/') {
     this.label = label;
+    this.href = href;
   }
 }
 
-const listItemsArray = [
-  new ListItem('About author'),
-  new ListItem('Used stack'),
-  new ListItem('Contact'),
-  new ListItem('Rate')
+const LIST_ITEMS = [
+  new ListItem({ en: 'About author', ru: 'Об авторе' }),
+  new ListItem('Github', 'https://github.com/artyeug/real-time-chat'),
+  new ListItem({ en: 'Contact', ru: 'Связаться' })
 ];
-
-const listItems = listItemsArray.map((item, index) => {
-  return (
-    <li className="unordered-list__list-item" key={index}>
-      <a className="unordered-list__anchor" href="/" target="_blank">
-        {item.label}
-      </a>
-    </li>
-  )
-});
 
 @autobind
 export default class FooterContainer extends React.Component {
@@ -45,6 +35,20 @@ export default class FooterContainer extends React.Component {
   }
 
   render() {
+    let listItems = LIST_ITEMS.map((item, index) => {
+      let label = typeof item.label === 'object'
+        ? item.label[this.props.lang]
+        : item.label;
+
+      return (
+        <li className="unordered-list__list-item" key={index}>
+          <a className="unordered-list__anchor" href={item.href} target="_blank">
+            {label}
+          </a>
+        </li>
+      )
+    });
+
     return (
       <Footer classList={this.getClassList()} listData={listItems} />
     );
