@@ -43,8 +43,6 @@ var APPEND_TO_MAKE_UNIQUE = 1;
 var connectionArray = [];
 var nextID = Date.now();
 
-var tempVar = null;
-
 var wsServer = new _websocket.server({
   httpServer: server,
   autoAcceptConnections: false
@@ -52,8 +50,6 @@ var wsServer = new _websocket.server({
 
 wsServer.on('request', function (request) {
   var status = '';
-
-  tempVar = request.origin;
 
   if (originIsAllowed(request.origin)) {
     request.accept('', request.origin);
@@ -73,10 +69,7 @@ wsServer.on('connect', function (connection) {
 
   var message = {
     type: "ID",
-    id: connection.clientID,
-    // TEMP
-    tempVar: tempVar,
-    addr: connection.remoteAddress
+    id: connection.clientID
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -141,7 +134,8 @@ wsServer.on('connect', function (connection) {
 });
 
 function originIsAllowed(origin) {
-  // this is where should ensure the connection should be accepted. return false if it should not be.
+  // This is where should ensure the connection should be accepted.
+  // Return false if it should not be.
   return true;
 }
 
@@ -205,7 +199,6 @@ function sendToAllConnections(stringifiedData) {
   reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'src/node/server.js');
   reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
   reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
-  reactHotLoader.register(tempVar, 'tempVar', 'src/node/server.js');
   reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
   reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
   reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
