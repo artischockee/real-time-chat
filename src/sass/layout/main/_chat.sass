@@ -8,6 +8,26 @@
     // as for the other sides), but Firefox says 'no' and ignores
     // padding-bottom applying to .user-messages in it.
     padding: 1em 1em 0
+    position: relative
+
+    .empty-chat-placeholder
+      @extend %flex-col-nowrap
+      align-items: center
+      height: 100%
+      justify-content: center
+      left: 0
+      position: absolute
+      top: 0
+      width: 100%
+
+      &__icon
+        width: 5em
+        height: auto
+
+      &__text
+        @extend %reset-margin-padding
+        color: $color-gray-light
+        margin-top: 1em
 
     .user-messages
       align-items: flex-start
@@ -75,10 +95,6 @@
     font-family: $font-stack
     outline: none
     padding: .5em
-    transition: background-color 300ms ease-out
-
-    &:focus
-      background-color: darken($color-white, 3%)
 
   &__button
     background-color: $color-silver
@@ -90,7 +106,7 @@
     font-size: 1em
     font-weight: normal
     outline: none
-    padding: .657em 1.5em
+    padding: 0 1.5em
     transition: background-color 300ms ease-out
 
     &:hover
