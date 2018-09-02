@@ -63,7 +63,7 @@ wsServer.on('connect', connection => {
     id: connection.clientID,
     // TEMP
     tempVar,
-    array: connectionArray.toString()
+    addr: connection.remoteAddress
   };
 
   connection.sendUTF(JSON.stringify(message));
