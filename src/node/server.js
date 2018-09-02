@@ -32,6 +32,8 @@ const APPEND_TO_MAKE_UNIQUE = 1;
 let connectionArray = [];
 let nextID = Date.now();
 
+let tempVar = null;
+
 let wsServer = new WebSocketServer({
   httpServer: server,
   autoAcceptConnections: false
@@ -39,6 +41,8 @@ let wsServer = new WebSocketServer({
 
 wsServer.on('request', request => {
   let status = '';
+
+  tempVar = request.origin;
 
   if (originIsAllowed(request.origin)) {
     request.accept('', request.origin);
@@ -59,7 +63,8 @@ wsServer.on('connect', connection => {
 
   let message = {
     type: "ID",
-    id: connection.clientID
+    id: connection.clientID,
+    tempVar // TEMP
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -113,7 +118,7 @@ wsServer.on('connect', connection => {
     sendToAllConnections(messageString);
   });
 
-  connection.on('close', connection => {
+  connection.on('close', (reasonCode, descr) => {
     connectionArray = connectionArray.filter(connection => connection.connected);
 
     sendUserListToAll();
