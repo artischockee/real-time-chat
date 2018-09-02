@@ -22,9 +22,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   enterModule && enterModule(module);
 })(); // Express server:
 
-var PORT = process.env.PORT;
-// const PORT = 8080;
-
 var router = (0, _express2.default)();
 
 router.get('/', function (req, res) {
@@ -38,7 +35,7 @@ app.use(_express2.default.static(__dirname + '/'));
 
 var server = _http2.default.createServer(app);
 
-server.listen(PORT);
+server.listen(process.env.PORT);
 
 // WebSockets:
 
@@ -47,6 +44,7 @@ var connectionArray = [];
 var nextID = Date.now();
 
 var tempVar = null;
+var nodeTemp = process.env;
 
 var wsServer = new _websocket.server({
   httpServer: server,
@@ -77,7 +75,9 @@ wsServer.on('connect', function (connection) {
   var message = {
     type: "ID",
     id: connection.clientID,
-    tempVar: tempVar // TEMP
+    // TEMP
+    tempVar: tempVar,
+    nodeTemp: nodeTemp
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -200,7 +200,6 @@ function sendToAllConnections(stringifiedData) {
     return;
   }
 
-  reactHotLoader.register(PORT, 'PORT', 'src/node/server.js');
   reactHotLoader.register(router, 'router', 'src/node/server.js');
   reactHotLoader.register(app, 'app', 'src/node/server.js');
   reactHotLoader.register(server, 'server', 'src/node/server.js');
@@ -208,6 +207,7 @@ function sendToAllConnections(stringifiedData) {
   reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
   reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
   reactHotLoader.register(tempVar, 'tempVar', 'src/node/server.js');
+  reactHotLoader.register(nodeTemp, 'nodeTemp', 'src/node/server.js');
   reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
   reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
   reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
