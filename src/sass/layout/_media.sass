@@ -1,4 +1,4 @@
-+media-maxw(1440px)
++max-width(1440px)
   .users-online_visible
     margin-right: 2em
     width: 20em
@@ -6,11 +6,11 @@
   .chat
     width: 60%
 
-+media-maxw(1360px)
++max-width(1360px)
   .login-box__title
     font-size: 2em
 
-+media-maxw(1024px)
++max-width(1024px)
   .users-online
 
     &_visible
@@ -33,7 +33,7 @@
   .login-box__title
     margin-top: .3em
 
-+media-maxw(860px)
++max-width(860px)
   .main
     flex-direction: column
 
@@ -46,7 +46,7 @@
       width: 100%
 
     &_visible
-      height: 16em
+      height: auto
       margin-right: 0
       transform: rotateX(0)
       transform-origin: bottom
@@ -61,6 +61,7 @@
       display: flex
       flex-flow: row nowrap
       height: 100%
+      justify-content: center
       padding: 1em
       padding-right: 0
 
@@ -89,8 +90,7 @@
             width: 3em
 
           &__info-wrapper
-            justify-content: flex-start
-            overflow: hidden
+            display: none
 
     .line-bottom
       border-bottom: .125em solid lighten($color-black-light, 50%)
@@ -98,12 +98,13 @@
   .chat
     width: 100%
 
-+media-maxh(800px)
++max-height(800px)
   .header
     margin: 1em 0 2em
 
-+media-maxw(768px)
++max-width(768px)
   #root
+    animation: none
     background: none
 
   .header
@@ -116,15 +117,15 @@
     margin-bottom: 0
     flex: auto
 
+    .line-top
+      display: none
+
   .users-online, .chat
     background-color: white
     box-shadow: none
 
   .chat
     flex: auto
-
-    &__button
-      display: none
 
     .line-bottom
       min-height: 3em
@@ -152,7 +153,7 @@
       &:hover::after
         width: inherit
 
-+media-maxh(768px)
+@media only screen and (min-width: 861px) and (max-height: 768px)
   .users-online, .chat
     height: 32em
 
@@ -160,11 +161,11 @@
     font-size: 2em
     margin: 0 0 .25em
 
-+media-maxw(640px)
++max-width(640px)
   .login-box__title
     font-size: 1.75em
 
-+media-maxw(480px)
++max-width(480px)
   .header
     margin: 1em 0
 
@@ -180,15 +181,18 @@
   .login-box__title
     font-size: 1.5em
 
-+media-maxw(425px)
+  .chat__button
+    display: none
+
++max-width(425px)
   .language-chooser
     width: 90%
 
-+media-maxw(375px)
++max-width(375px)
   .form-section
     margin-bottom: 1em
 
-+media-maxw(360px)
++max-width(360px)
   .footer
 
     &__navigation
