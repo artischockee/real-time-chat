@@ -27,9 +27,6 @@ export default class MainContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    // This isn't used
-    this.mainRef = React.createRef();
-
     this.state = {
       connection: null,
       clientID: 0,
@@ -42,7 +39,6 @@ export default class MainContainer extends React.Component {
       usersOnline: [],
       chatMessages: [],
       controlsAreFrozen: true,
-      // controlsAreFrozen: false, // ONLY FOR DEV
       onlineSectionHidden: true
     };
   }
@@ -81,17 +77,11 @@ export default class MainContainer extends React.Component {
       });
     };
 
-    // this.setState({
-    //   controlsAreFrozen: false,
-    //   onlineSectionHidden: false
-    // });
-
     connection.onmessage = (event) => {
       let message = JSON.parse(event.data);
 
-      // DEV (for reducing redundant output in other userwindow):
-      if (message.id === this.state.clientID)
-        console.log(message);
+      // if (message.id === this.state.clientID)
+        // console.log(message);
 
       switch (message.type) {
         case MSG_TYPES.ID:
@@ -119,10 +109,8 @@ export default class MainContainer extends React.Component {
   }
 
   sendMessage() {
-    if (this.state.message === '') {
-      console.warn('Nothing to send.'); // TODO: replace it with UI notification
+    if (this.state.message === '')
       return;
-    }
 
     let message = {
       type: MSG_TYPES.MESSAGE,
@@ -161,24 +149,10 @@ export default class MainContainer extends React.Component {
     console.log('Main updated.');
 
     if (prevState.onlineSectionHidden !== this.state.onlineSectionHidden) {
-
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
-
-      // WARNING: the next code does not work properly
-      // because of animated 'users-online' section, that
-      // interrupt the code calculating the offsetTop correctly.
-
-      // let mainOffsetTop = this.mainRef.current.offsetTop;
-
-      // setTimeout(() => {
-      //   window.scrollTo({
-      //     top: mainOffsetTop,
-      //     behavior: 'smooth'
-      //   });
-      // }, 2000);
     }
   }
 
@@ -196,7 +170,6 @@ export default class MainContainer extends React.Component {
         chatMessageValue={this.state.message}
         lang={this.props.lang}
         loginBoxUserData={this.state.userData}
-        mainRef={this.mainRef}
         onlineSectionHidden={this.state.onlineSectionHidden}
         onlineSectionUsersOnline={this.state.usersOnline}
       />

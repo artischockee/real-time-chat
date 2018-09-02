@@ -5,7 +5,7 @@ import ChatContainer from '../containers/chat';
 
 const Main = (props) => {
   return (
-    <main className="main" ref={props.mainRef}>
+    <main className="main">
       <UsersOnlineContainer
         hidden={props.onlineSectionHidden}
         lang={props.lang}
