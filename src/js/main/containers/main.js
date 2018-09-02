@@ -81,9 +81,6 @@ export default class MainContainer extends React.Component {
     connection.onmessage = (event) => {
       let message = JSON.parse(event.data);
 
-      // TEMP:
-      console.log(message);
-
       switch (message.type) {
         case MSG_TYPES.ID:
           this.setState({ clientID: message.id });
