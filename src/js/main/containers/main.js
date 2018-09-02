@@ -71,10 +71,16 @@ export default class MainContainer extends React.Component {
     let connection = new WebSocket(SERVER_URL);
 
     connection.onopen = (event) => {
-      this.setState({
-        controlsAreFrozen: false,
-        onlineSectionHidden: false
-      });
+      setTimeout(() => {
+        this.setState({
+          controlsAreFrozen: false,
+          onlineSectionHidden: false
+        });
+      }, 500);
+      // this.setState({
+      //   controlsAreFrozen: false,
+      //   onlineSectionHidden: false
+      // });
     };
 
     connection.onmessage = (event) => {
