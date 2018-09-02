@@ -4,9 +4,10 @@ import Main from '../components/main';
 
 const HOSTNAME = window.location.hostname;
 const PORT = window.location.port;
+const COLON = PORT === '' ? '' : ':';
 const PROTOCOL = window.location.protocol;
 const WS_PROTOCOL = PROTOCOL === 'http:' ? 'ws:' : 'wss:';
-const SERVER_URL = `${WS_PROTOCOL}//${HOSTNAME}:${PORT}`;
+const SERVER_URL = `${WS_PROTOCOL}//${HOSTNAME}${COLON}${PORT}`;
 
 const MSG_TYPES = {
   MESSAGE: 'MESSAGE',
@@ -107,10 +108,10 @@ export default class MainContainer extends React.Component {
 
           break;
       }
-
-      console.log('after onopen and onmessage functions:');
-      console.log(connection);
     };
+
+    console.log('after onopen and onmessage functions:');
+    console.log(connection);
 
     this.setState({ connection });
 
