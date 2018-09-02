@@ -2,6 +2,10 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import UserMessages from '../components/user-messages';
 
+function arraysEqual(first, second) {
+  return first.every((item, index) => item === second[index]);
+}
+
 @autobind
 export default class UserMessagesContainer extends React.Component {
   constructor(props) {
@@ -21,8 +25,11 @@ export default class UserMessagesContainer extends React.Component {
       return null;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('UserMessages updated.');
+  shouldComponentUpdate(nextProps, nextState) {
+    if (arraysEqual(nextProps.messages, this.props.messages))
+      return false;
+
+    return true;
   }
 
   render() {
