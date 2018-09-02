@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   enterModule && enterModule(module);
 })(); // Express server:
 
-var PORT = process.env.PORT;
-// const PORT = 8080;
+// const PORT = process.env.PORT;
+var PORT = 8080;
 
 var router = (0, _express2.default)();
 
@@ -46,6 +46,8 @@ var APPEND_TO_MAKE_UNIQUE = 1;
 var connectionArray = [];
 var nextID = Date.now();
 
+var tempVar = null;
+
 var wsServer = new _websocket.server({
   httpServer: server,
   autoAcceptConnections: false
@@ -53,6 +55,8 @@ var wsServer = new _websocket.server({
 
 wsServer.on('request', function (request) {
   var status = '';
+
+  tempVar = request.origin;
 
   if (originIsAllowed(request.origin)) {
     request.accept('', request.origin);
@@ -72,7 +76,8 @@ wsServer.on('connect', function (connection) {
 
   var message = {
     type: "ID",
-    id: connection.clientID
+    id: connection.clientID,
+    tempVar: tempVar // TEMP
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -125,7 +130,7 @@ wsServer.on('connect', function (connection) {
     sendToAllConnections(messageString);
   });
 
-  connection.on('close', function (connection) {
+  connection.on('close', function (reasonCode, descr) {
     connectionArray = connectionArray.filter(function (connection) {
       return connection.connected;
     });
@@ -202,6 +207,7 @@ function sendToAllConnections(stringifiedData) {
   reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'src/node/server.js');
   reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
   reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
+  reactHotLoader.register(tempVar, 'tempVar', 'src/node/server.js');
   reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
   reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
   reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
