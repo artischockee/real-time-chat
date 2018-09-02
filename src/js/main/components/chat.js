@@ -11,6 +11,7 @@ const Chat = (props) => {
       </div>
 
       <div className="main-section" ref={props.windowRef} onScroll={props.handleScroll}>
+        {props.emptyChatPlaceholder}
         {props.messages}
       </div>
 

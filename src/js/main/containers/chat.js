@@ -25,13 +25,18 @@ const TITLE = {
 };
 
 const PLACEHOLDER = {
-  en: 'Write your message..',
-  ru: 'Напишите сообщение..'
+  en: 'Type a message..',
+  ru: 'Сообщение..'
 };
 
 const SEND = {
   en: 'Send',
   ru: 'Отправить'
+};
+
+const CHAT_ICON_ALT = {
+  en: 'Chat icon',
+  ru: 'Иконка чата'
 };
 
 @autobind
@@ -60,6 +65,28 @@ export default class ChatContainer extends React.Component {
       );
     else
       return null;
+  }
+
+  getEmptyChatPlaceholder() {
+    if (
+      this.props.messages === undefined
+      || this.props.messages.length == 0
+    ) {
+      return (
+        <div className="empty-chat-placeholder">
+          <img
+            alt={CHAT_ICON_ALT[this.props.lang]}
+            className="empty-chat-placeholder__icon"
+            src="images/chat.svg"
+          />
+          <p className="empty-chat-placeholder__text">
+            Chat messages will be displayed here.
+          </p>
+        </div>
+      );
+    }
+
+    return null;
   }
 
   getUserMessages() {
@@ -154,6 +181,7 @@ export default class ChatContainer extends React.Component {
   render() {
     return (
       <Chat
+        emptyChatPlaceholder={this.getEmptyChatPlaceholder()}
         controlsAreFrozen={this.props.controlsAreFrozen}
         handleMessageBoxChange={this.props.handleMessageBoxChange}
         handleMessageBoxEnterKeyPress={this.props.handleMessageBoxEnterKeyPress}
