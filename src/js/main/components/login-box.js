@@ -9,13 +9,12 @@ const LoginBox = (props) => {
       <h1 className="login-box__title">{props.title}</h1>
 
       <form action="" id="login-box-form"
-        className="login-box__form" onSubmit={props.handleConnect}>
+        className="login-box__form">
 
         <FormSectionContainer
           description={props.formLogin.description}
           handleChange={props.handleChange}
           highlightedDueToError={props.loginData.highlighted}
-          inputID="input-login"
           inputName="login"
           inputType="text"
           inputValue={props.loginValue}
@@ -28,7 +27,6 @@ const LoginBox = (props) => {
           description={props.formSign.description}
           handleChange={props.handleChange}
           highlightedDueToError={props.signData.highlighted}
-          inputID="input-sign"
           inputName="sign"
           inputType="text"
           inputValue={props.signValue}
@@ -44,7 +42,7 @@ const LoginBox = (props) => {
           </div> */
         }
 
-        <input className="submit" form="login-box-form" type="submit" id="submit-and-connect" value={props.submit} />
+        <input className="submit" form="login-box-form" type="submit" value={props.submit} onClick={props.handleConnect} />
 
       </form>
 
