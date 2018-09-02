@@ -11,9 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch --config webpack.prod.js",
-    "start-dev": "webpack-dev-server --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.dev.js",
     "start": "node dist/server.js",
-    "babel": "babel --watch server.js -o dist/server.js"
+    "babel": "babel --watch src/node/server.js -o dist/server.js"
   },
   "author": "Artem Piskarev",
   "license": "ISC",
@@ -28,18 +28,19 @@
     "browserslist": "^3.2.8",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
-    "mini-css-extract-plugin": "^0.4.1",
+    "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
-    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^2.1.6",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.3.0",
     "url-loader": "^1.1.1",
-    "webpack": "^4.16.5",
+    "webpack": "^4.17.1",
     "webpack-cli": "^2.1.5",
-    "webpack-dev-server": "^3.1.5",
-    "webpack-merge": "^4.1.4"
+    "webpack-dev-server": "^3.1.7",
+    "webpack-merge": "^4.1.4",
+    "webpack-node-externals": "^1.7.2"
   },
   "browserslist": [
     "defaults"
@@ -50,7 +51,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-hot-loader": "^4.3.4",
+    "react-hot-loader": "^4.3.5",
     "websocket": "^1.0.26"
   }
 }
