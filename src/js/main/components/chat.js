@@ -40,7 +40,17 @@ const Chat = (props) => {
 };
 
 Chat.propTypes = {
-
+  controlsAreFrozen: PropTypes.bool.isRequired,
+  handleMessageBoxChange: PropTypes.func.isRequired,
+  handleMessageBoxEnterKeyPress: PropTypes.func.isRequired,
+  handleMessageSending: PropTypes.func.isRequired,
+  handleScroll: PropTypes.func.isRequired,
+  loginBoxContainer: PropTypes.object,
+  messages: PropTypes.arrayOf(PropTypes.object),
+  messageValue: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  send: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Chat;
