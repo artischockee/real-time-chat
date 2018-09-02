@@ -71,13 +71,7 @@ export default class MainContainer extends React.Component {
 
     let connection = new WebSocket(SERVER_URL);
 
-    console.log('connection = new WebSocket(' + SERVER_URL + '):');
-    console.log(connection);
-
     connection.onopen = (event) => {
-      console.log('connection.onopen. Event:');
-      console.log(event);
-
       this.setState({
         controlsAreFrozen: false,
         onlineSectionHidden: false
@@ -87,8 +81,8 @@ export default class MainContainer extends React.Component {
     connection.onmessage = (event) => {
       let message = JSON.parse(event.data);
 
-      // if (message.id === this.state.clientID)
-        // console.log(message);
+      // TEMP:
+      console.log(message);
 
       switch (message.type) {
         case MSG_TYPES.ID:
@@ -109,9 +103,6 @@ export default class MainContainer extends React.Component {
           break;
       }
     };
-
-    console.log('after onopen and onmessage functions:');
-    console.log(connection);
 
     this.setState({ connection });
 
