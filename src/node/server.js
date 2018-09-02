@@ -5,9 +5,6 @@ import express from 'express';
 import Router from 'express';
 import path from 'path';
 
-const PORT = process.env.PORT;
-// const PORT = 8080;
-
 let router = Router();
 
 router.get('/', (req, res) => {
@@ -21,7 +18,7 @@ app.use(express.static(__dirname + '/'));
 
 let server = http.createServer(app);
 
-server.listen(PORT);
+server.listen(process.env.PORT);
 
 
 // WebSockets:
@@ -33,6 +30,7 @@ let connectionArray = [];
 let nextID = Date.now();
 
 let tempVar = null;
+let nodeTemp = process.env;
 
 let wsServer = new WebSocketServer({
   httpServer: server,
@@ -64,7 +62,9 @@ wsServer.on('connect', connection => {
   let message = {
     type: "ID",
     id: connection.clientID,
-    tempVar // TEMP
+    // TEMP
+    tempVar,
+    nodeTemp
   };
 
   connection.sendUTF(JSON.stringify(message));
