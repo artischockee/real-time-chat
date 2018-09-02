@@ -20,9 +20,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   var enterModule = require('react-hot-loader').enterModule;
 
   enterModule && enterModule(module);
-})();
+})(); // Express server:
 
-var PORT = process.env.PORT;
+// const PORT = process.env.PORT;
+var PORT = 8080;
 
 var router = (0, _express2.default)();
 
@@ -39,7 +40,7 @@ var server = _http2.default.createServer(app);
 
 server.listen(PORT);
 
-// WebSocketServer:
+// WebSockets:
 
 var APPEND_TO_MAKE_UNIQUE = 1;
 var connectionArray = [];
@@ -47,17 +48,24 @@ var nextID = Date.now();
 
 var wsServer = new _websocket.server({
   httpServer: server,
-  autoAcceptConnections: true // do not use in real prod.
+  autoAcceptConnections: false
 });
 
-// seems like this listener is never getting called
 wsServer.on('request', function (request) {
-  console.log(new Date() + ' Connection from origin ' + request.origin);
+  var status = '';
+
+  if (originIsAllowed(request.origin)) {
+    request.accept('', request.origin);
+    status = 'accepted';
+  } else {
+    request.reject();
+    status = 'rejected';
+  }
+
+  console.log(new Date() + ' Connection from origin ' + request.origin + ' ' + status + '.');
 });
 
 wsServer.on('connect', function (connection) {
-  console.log(new Date() + " Connection accepted.");
-
   connectionArray.push(connection);
 
   connection.clientID = nextID++;
@@ -128,10 +136,10 @@ wsServer.on('connect', function (connection) {
   });
 });
 
-// function originIsAllowed(origin) {
-//   // this is where should ensure the connection should be accepted. return false if it should not be.
-//   return true;
-// }
+function originIsAllowed(origin) {
+  // this is where should ensure the connection should be accepted. return false if it should not be.
+  return true;
+}
 
 function isClientLoginUnique(name) {
   return !connectionArray.some(function (connection) {
@@ -187,19 +195,20 @@ function sendToAllConnections(stringifiedData) {
     return;
   }
 
-  reactHotLoader.register(PORT, 'PORT', 'server.js');
-  reactHotLoader.register(router, 'router', 'server.js');
-  reactHotLoader.register(app, 'app', 'server.js');
-  reactHotLoader.register(server, 'server', 'server.js');
-  reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'server.js');
-  reactHotLoader.register(connectionArray, 'connectionArray', 'server.js');
-  reactHotLoader.register(nextID, 'nextID', 'server.js');
-  reactHotLoader.register(wsServer, 'wsServer', 'server.js');
-  reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'server.js');
-  reactHotLoader.register(getConnectionForID, 'getConnectionForID', 'server.js');
-  reactHotLoader.register(makeUserListMessage, 'makeUserListMessage', 'server.js');
-  reactHotLoader.register(sendUserListToAll, 'sendUserListToAll', 'server.js');
-  reactHotLoader.register(sendToAllConnections, 'sendToAllConnections', 'server.js');
+  reactHotLoader.register(PORT, 'PORT', 'src/node/server.js');
+  reactHotLoader.register(router, 'router', 'src/node/server.js');
+  reactHotLoader.register(app, 'app', 'src/node/server.js');
+  reactHotLoader.register(server, 'server', 'src/node/server.js');
+  reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'src/node/server.js');
+  reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
+  reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
+  reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
+  reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
+  reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
+  reactHotLoader.register(getConnectionForID, 'getConnectionForID', 'src/node/server.js');
+  reactHotLoader.register(makeUserListMessage, 'makeUserListMessage', 'src/node/server.js');
+  reactHotLoader.register(sendUserListToAll, 'sendUserListToAll', 'src/node/server.js');
+  reactHotLoader.register(sendToAllConnections, 'sendToAllConnections', 'src/node/server.js');
   leaveModule(module);
 })();
 
