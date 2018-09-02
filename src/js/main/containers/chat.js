@@ -45,7 +45,6 @@ export default class ChatContainer extends React.Component {
       chatAttachedToEnd: true,
       displayLoginBox: true,
       lastMessageClientID: 0
-      // displayLoginBox: false // ONLY FOR DEV!
     };
   }
 
@@ -139,9 +138,8 @@ export default class ChatContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('Chat updated.');
-
-    if (prevProps.messages.length === this.props.messages.length) return;
+    if (prevProps.messages.length === this.props.messages.length)
+      return;
 
     let chatWindow = this.chatWindowRef.current;
 
