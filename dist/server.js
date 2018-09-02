@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   enterModule && enterModule(module);
 })(); // Express server:
 
-// const PORT = process.env.PORT;
-var PORT = 8080;
+var PORT = process.env.PORT;
+// const PORT = 8080;
 
 var router = (0, _express2.default)();
 
