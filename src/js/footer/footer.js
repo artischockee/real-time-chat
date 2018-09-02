@@ -1,6 +1,6 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
-import Footer from '../components/footer';
+import Footer from './footer_comp';
 
 class ListItem {
   constructor(label, href = '/') {
@@ -28,10 +28,6 @@ export default class FooterContainer extends React.Component {
       className += ' footer_may-be-disabled';
 
     return className;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('Footer updated.');
   }
 
   render() {

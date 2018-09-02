@@ -1,6 +1,6 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
-import Header from '../components/header';
+import Header from './header_comp';
 
 const TITLE = {
   en: 'Real-time chat',
@@ -8,8 +8,8 @@ const TITLE = {
 };
 
 const DESCRIPTION = {
-  en: 'Enjoy it!',
-  ru: 'Наслаждайтесь!'
+  en: 'Greetings!',
+  ru: 'Приветствуем!'
 };
 
 @autobind
@@ -18,11 +18,21 @@ export default class HeaderContainer extends React.Component {
     super(props);
   }
 
+  getClassList() {
+    let className = 'header';
+
+    if (this.props.mayBeDisabled)
+      className += ' header_may-be-disabled';
+
+    return className;
+  }
+
   render() {
     return (
       <Header
-        title={TITLE[this.props.lang]}
+        classList={this.getClassList()}
         description={DESCRIPTION[this.props.lang]}
+        title={TITLE[this.props.lang]}
       />
     );
   }
