@@ -5,8 +5,8 @@ import express from 'express';
 import Router from 'express';
 import path from 'path';
 
-// const PORT = process.env.PORT;
-const PORT = 8080;
+const PORT = process.env.PORT;
+// const PORT = 8080;
 
 let router = Router();
 
