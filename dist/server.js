@@ -44,7 +44,6 @@ var connectionArray = [];
 var nextID = Date.now();
 
 var tempVar = null;
-var nodeTemp = process.env;
 
 var wsServer = new _websocket.server({
   httpServer: server,
@@ -77,7 +76,7 @@ wsServer.on('connect', function (connection) {
     id: connection.clientID,
     // TEMP
     tempVar: tempVar,
-    nodeTemp: nodeTemp
+    connectionArray: connectionArray
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -207,7 +206,6 @@ function sendToAllConnections(stringifiedData) {
   reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
   reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
   reactHotLoader.register(tempVar, 'tempVar', 'src/node/server.js');
-  reactHotLoader.register(nodeTemp, 'nodeTemp', 'src/node/server.js');
   reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
   reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
   reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
