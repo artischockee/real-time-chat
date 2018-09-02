@@ -1,7 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import { hot } from 'react-hot-loader';
-import AppComponent from './app_component';
+import AppComponent from './app_comp';
 import LangChooserContainer from './language-chooser/lang-chooser';
 
 @autobind
@@ -11,14 +11,14 @@ class App extends React.Component {
 
     this.state = {
       displayLangChooser: true,
-      footerMayBeDisabled: false,
+      sectionMayBeDisabled: false,
       language: 'en'
     };
   }
 
   confirmLogIn() {
     this.setState({
-      footerMayBeDisabled: true
+      sectionMayBeDisabled: true
     });
   }
 
@@ -52,7 +52,7 @@ class App extends React.Component {
     return (
       <AppComponent
         confirmLogIn={this.confirmLogIn}
-        footerMayBeDisabled={this.state.footerMayBeDisabled}
+        sectionMayBeDisabled={this.state.sectionMayBeDisabled}
         langChooserElement={this.showLangChooser()}
         language={this.state.language}
       />
