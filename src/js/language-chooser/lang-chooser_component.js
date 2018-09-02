@@ -4,7 +4,7 @@ import FormSectionContainer from './form-section';
 
 const LangChooser = (props) => {
   return (
-    <div className={props.wrapperClassList} style={props.wrapperStyle}>
+    <div className={props.wrapperClassList}>
       <div className="language-chooser">
         <form action="" className="lang-chooser-form" onSubmit={props.handleSubmit}>
 

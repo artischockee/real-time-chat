@@ -7,10 +7,6 @@ const SUBMIT = {
   ru: 'Подтвердить'
 };
 
-const WRAPPER_STYLE = {
-  backgroundImage: 'url(/images/lang-chooser-bg.jpg)'
-}
-
 @autobind
 export default class LangChooserContainer extends React.Component {
   constructor(props) {
@@ -47,10 +43,6 @@ export default class LangChooserContainer extends React.Component {
     this.props.handleSubmit(this.state.checkedLanguage);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('LangChooser updated.');
-  }
-
   render() {
     return (
       <LangChooser
@@ -59,7 +51,6 @@ export default class LangChooserContainer extends React.Component {
         lang={this.state.checkedLanguage}
         submitValue={SUBMIT[this.state.checkedLanguage]}
         wrapperClassList={this.getWrapperClassList()}
-        wrapperStyle={WRAPPER_STYLE}
       />
     );
   }
