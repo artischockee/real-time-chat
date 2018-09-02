@@ -70,17 +70,17 @@ export default class MainContainer extends React.Component {
 
     let connection = new WebSocket(SERVER_URL);
 
+    console.log('connection = new WebSocket(' + SERVER_URL + '):');
+    console.log(connection);
+
     connection.onopen = (event) => {
-      setTimeout(() => {
-        this.setState({
-          controlsAreFrozen: false,
-          onlineSectionHidden: false
-        });
-      }, 500);
-      // this.setState({
-      //   controlsAreFrozen: false,
-      //   onlineSectionHidden: false
-      // });
+      console.log('connection.onopen. Event:');
+      console.log(event);
+
+      this.setState({
+        controlsAreFrozen: false,
+        onlineSectionHidden: false
+      });
     };
 
     connection.onmessage = (event) => {
@@ -107,6 +107,9 @@ export default class MainContainer extends React.Component {
 
           break;
       }
+
+      console.log('after onopen and onmessage functions:');
+      console.log(connection);
     };
 
     this.setState({ connection });
