@@ -29,8 +29,6 @@ const APPEND_TO_MAKE_UNIQUE = 1;
 let connectionArray = [];
 let nextID = Date.now();
 
-let tempVar = null;
-
 let wsServer = new WebSocketServer({
   httpServer: server,
   autoAcceptConnections: false
@@ -38,8 +36,6 @@ let wsServer = new WebSocketServer({
 
 wsServer.on('request', request => {
   let status = '';
-
-  tempVar = request.origin;
 
   if (originIsAllowed(request.origin)) {
     request.accept('', request.origin);
@@ -60,10 +56,7 @@ wsServer.on('connect', connection => {
 
   let message = {
     type: "ID",
-    id: connection.clientID,
-    // TEMP
-    tempVar,
-    addr: connection.remoteAddress
+    id: connection.clientID
   };
 
   connection.sendUTF(JSON.stringify(message));
@@ -127,7 +120,8 @@ wsServer.on('connect', connection => {
 });
 
 function originIsAllowed(origin) {
-  // this is where should ensure the connection should be accepted. return false if it should not be.
+  // This is where should ensure the connection should be accepted.
+  // Return false if it should not be.
   return true;
 }
 
