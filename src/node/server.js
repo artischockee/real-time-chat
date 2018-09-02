@@ -30,7 +30,6 @@ let connectionArray = [];
 let nextID = Date.now();
 
 let tempVar = null;
-let nodeTemp = process.env;
 
 let wsServer = new WebSocketServer({
   httpServer: server,
@@ -64,7 +63,7 @@ wsServer.on('connect', connection => {
     id: connection.clientID,
     // TEMP
     tempVar,
-    nodeTemp
+    connectionArray
   };
 
   connection.sendUTF(JSON.stringify(message));
