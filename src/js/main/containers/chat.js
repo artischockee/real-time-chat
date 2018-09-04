@@ -48,16 +48,15 @@ export default class ChatContainer extends React.Component {
 
     this.state = {
       chatAttachedToEnd: true,
-      displayLoginBox: true,
       lastMessageClientID: 0
     };
   }
 
   getLoginBoxContainer() {
-    if (this.state.displayLoginBox)
+    if (this.props.displayLoginBox)
       return (
         <LoginBoxContainer
-          handleConnect={this.handleConnect}
+          handleConnect={this.props.handleConnect}
           handleInputChange={this.props.handleLoginBoxChange}
           lang={this.props.lang}
           userData={this.props.loginBoxUserData}
@@ -135,13 +134,6 @@ export default class ChatContainer extends React.Component {
         />
       )
     });
-  }
-
-  handleConnect() {
-    this.setState({
-      displayLoginBox: false
-    });
-    this.props.handleConnect();
   }
 
   handleScroll() {
