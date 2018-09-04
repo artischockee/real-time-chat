@@ -40,7 +40,8 @@ export default class MainContainer extends React.Component {
       usersOnline: [],
       chatMessages: [],
       controlsAreFrozen: true,
-      onlineSectionHidden: true
+      onlineSectionHidden: true,
+      displayLoginBox: true
     };
   }
 
@@ -69,11 +70,60 @@ export default class MainContainer extends React.Component {
       return;
     }
 
+    // NOTE: Long connection modeling:
+    // let connection = null;
+    /*setTimeout(() => {
+      connection = new WebSocket(SERVER_URL);
+
+      connection.onopen = (event) => {
+        this.setState({
+          controlsAreFrozen: false,
+          onlineSectionHidden: false,
+          displayLoginBox: false
+        });
+      };
+
+      connection.onmessage = (event) => {
+        let message = JSON.parse(event.data);
+
+        switch (message.type) {
+          case MSG_TYPES.ID:
+            this.setState({ clientID: message.id });
+            this.applyLoginBoxData();
+            break;
+          case MSG_TYPES.USERLIST:
+            this.setState({
+              usersOnline: message.users
+            });
+            break;
+          case MSG_TYPES.MESSAGE:
+            let chatMessages = [...this.state.chatMessages, message];
+            this.setState({ chatMessages });
+            break;
+          case MSG_TYPES.REJECT_USERDATA:
+
+            break;
+        }
+      };
+
+      this.setState({ connection });
+
+      this.props.confirmLogIn();
+    }, 5000);*/
+
     let connection = new WebSocket(SERVER_URL);
+
+    let int = setInterval(() => {
+      console.log(connection.readyState);
+
+      if (connection.readyState === 1)
+        clearInterval(int);
+    }, 100);
 
     connection.onopen = (event) => {
       this.setState({
         controlsAreFrozen: false,
+        displayLoginBox: false,
         onlineSectionHidden: false
       });
     };
@@ -166,6 +216,8 @@ export default class MainContainer extends React.Component {
         chatHandleMessageBoxEnterKeyPress={this.chatHandleMessageBoxEnterKeyPress}
         chatMessages={this.state.chatMessages}
         chatMessageValue={this.state.message}
+        // connectionReadyState={}
+        displayLoginBox={this.state.displayLoginBox}
         lang={this.props.lang}
         loginBoxUserData={this.state.userData}
         onlineSectionHidden={this.state.onlineSectionHidden}
