@@ -9,16 +9,59 @@
   padding: 2em
   position: absolute
   top: 0
-  transition-duration: 750ms
-  transition-property: visibility, opacity
-  transition-timing-function: ease-out
-  visibility: visible
+  transition: opacity 750ms ease-out
   width: 100%
   z-index: 1
 
   &_fade-out
     opacity: 0
-    visibility: hidden
+
+  &__form-wrapper
+    @extend %flex-col-wrap
+    align-items: center
+    height: 100%
+    opacity: 1
+    transition-duration: 250ms
+    transition-property: visibility, opacity
+    transition-timing-function: ease-out
+    visibility: visible
+
+    &_fade-out
+      opacity: 0
+      visibility: hidden
+
+  &__loading-wrapper
+    @extend %flex-col-nowrap
+    align-items: center
+    height: 100%
+    justify-content: center
+    opacity: 0
+    transition: opacity 250ms ease-out
+
+    &_fade-in
+      opacity: 1
+
+    .inscription
+      color: $color-black-light
+      margin: 0
+      margin-bottom: 1em
+
+    .spinner
+      align-items: center
+      display: flex
+      height: 4em
+      justify-content: center
+      width: 4em
+
+      &::after
+        animation: spinner 1s linear infinite
+        border: .25em solid
+        border-color: $color-black-lighter transparent
+        border-radius: 50%
+        content: ''
+        display: block
+        height: 50%
+        width: 50%
 
   &__title
     @extend %reset-margin-padding
