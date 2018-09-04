@@ -1,56 +1,22 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import LoginBox from '../components/login-box';
+import LoginBoxFormContainer from './login-box-form';
+import LoginBoxLoadingContainer from './login-box-loading';
 
-const TITLE = {
-  en: 'Log in to continue',
-  ru: 'Войдите, чтобы продолжить'
+const FRAGMENT = {
+  FORM: 'FORM',
+  LOADING: 'LOADING'
 };
-
-const FORM_LOGIN = {
-  en: {
-    label: 'Login',
-    description: 'Could be your name, initials, nickname, etc.'
-  },
-  ru: {
-    label: 'Логин',
-    description: 'Это может быть ваше имя, инициалы, никнейм и т. д.'
-  }
-};
-
-const FORM_SIGN = {
-  en: {
-    label: 'Sign',
-    description: 'Could be your status, position, or simply your current mood - the choise is up to you.'
-  },
-  ru: {
-    label: 'Подпись',
-    description: 'Это может быть ваш статус, должность на работе или просто ваше текущее настроение - выбор за вами.'
-  }
-};
-
-const SUBMIT = {
-  en: 'Log in',
-  ru: 'Войти'
-}
 
 @autobind
 export default class LoginBoxContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    // The user's data (login and sign values) holds in Main
-
     this.state = {
       fadeOutBeforeUnmount: false,
-      login: {
-        isRequired: true,
-        highlighted: false
-      },
-      sign: {
-        isRequired: false,
-        highlighted: false
-      }
+      currentFragment: FRAGMENT.FORM
     };
   }
 
@@ -63,59 +29,51 @@ export default class LoginBoxContainer extends React.Component {
     return classList;
   }
 
-  handleConnect(event) {
-    event.preventDefault();
-
-    // TODO: Check for every state keys that are according to inputs.
-    if (this.props.userData.login === '') {
-      console.log('You have not filled in all the required input fields.');
-
-      let key = this.state.login;
-      key.highlighted = true;
-
-      this.setState({ login: key });
-    }
-
-    else {
-      this.setState({
-        fadeOutBeforeUnmount: true
-      });
-
-      setTimeout(() => {
-        this.props.handleConnect();
-      }, 1000);
+  getCurrentFragment() {
+    switch (this.state.currentFragment) {
+      case FRAGMENT.FORM:
+        return (
+          <LoginBoxFormContainer
+            handleConnect={this.handleConnect}
+            handleInputChange={this.props.handleInputChange}
+            lang={this.props.lang}
+            userData={this.props.userData}
+          />
+        );
+      case FRAGMENT.LOADING:
+        return (
+          <LoginBoxLoadingContainer
+            lang={this.props.lang}
+          />
+        );
     }
   }
 
-  handleChange(event) {
-    let keyName = event.target.name;
+  handleConnect() {
+    this.setState({
+      currentFragment: FRAGMENT.LOADING
+    });
 
-    let key = this.state[keyName];
+    // let interval = setInterval(() => {
+      // if (this.props.connectionState === 1) {
+        this.setState({
+          fadeOutBeforeUnmount: true
+        });
 
-    if (key.highlighted && this.props.userData[keyName] !== '') {
-      key.highlighted = false;
+        setTimeout(() => {
+          this.props.handleConnect();
+        }, 850);
 
-      this.setState({ [keyName]: key })
-    }
-
-    this.props.handleInputChange(event);
+        // clearInterval(interval);
+      // }
+    // }, 100);
   }
 
   render() {
     return (
       <LoginBox
-        submit={SUBMIT[this.props.lang]}
         classList={this.getClassList()}
-        formLogin={FORM_LOGIN[this.props.lang]}
-        formSign={FORM_SIGN[this.props.lang]}
-        handleConnect={this.handleConnect}
-        handleChange={this.handleChange}
-        lang={this.props.lang}
-        loginData={this.state.login}
-        loginValue={this.props.userData.login}
-        signData={this.state.sign}
-        signValue={this.props.userData.sign}
-        title={TITLE[this.props.lang]}
+        fragment={this.getCurrentFragment()}
       />
     );
   }
