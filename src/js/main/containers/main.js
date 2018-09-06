@@ -113,11 +113,18 @@ export default class MainContainer extends React.Component {
 
     let connection = new WebSocket(SERVER_URL);
 
+    let breaker = 20;
     let int = setInterval(() => {
-      console.log(connection.readyState);
-
-      if (connection.readyState === 1)
+      breaker--;
+      if (connection.readyState === 1) {
+        console.log('Connected. ReadyState: OPEN.');
         clearInterval(int);
+      }
+      else if (breaker == 0) {
+        breaker = 20;
+        connection = new WebSocket(SERVER_URL);
+        console.log('A new WebSocket connection will be created after 2000ms of waiting for the previous one.');
+      }
     }, 100);
 
     connection.onopen = (event) => {
