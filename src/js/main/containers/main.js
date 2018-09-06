@@ -23,6 +23,28 @@ function getRandomUserImageSrc() {
   return `images/avatars/${imageNumber}.jpg`;
 }
 
+function getWorkingWebSocket() {
+  let connection = new WebSocket(SERVER_URL);
+
+  const ITER_COUNT = 20;
+  const DELAY = 100;
+
+  let breaker = ITER_COUNT;
+
+  let int = setInterval(() => {
+    if (connection.readyState === 1) {
+      clearInterval(int);
+    }
+    else if (breaker-- === 0) {
+      breaker = ITER_COUNT;
+      connection = new WebSocket(SERVER_URL);
+      console.log(`A new WebSocket connection created after ${ITER_COUNT * DELAY}ms of waiting for the previous one.`);
+    }
+  }, DELAY);
+
+  return connection;
+}
+
 @autobind
 export default class MainContainer extends React.Component {
   constructor(props) {
@@ -70,20 +92,26 @@ export default class MainContainer extends React.Component {
       return;
     }
 
-    // NOTE: Long connection modeling:
-    // let connection = null;
-    /*setTimeout(() => {
-      connection = new WebSocket(SERVER_URL);
+    let connection = null;
 
-      connection.onopen = (event) => {
+    let createWorkingWS = new Promise((resolve, reject) => {
+      let webSocket = getWorkingWebSocket();
+
+      resolve(webSocket);
+    });
+
+    createWorkingWS.then((webSocketConnection) => {
+      connection = webSocketConnection;
+
+      connection.onopen = event => {
         this.setState({
           controlsAreFrozen: false,
-          onlineSectionHidden: false,
-          displayLoginBox: false
+          displayLoginBox: false,
+          onlineSectionHidden: false
         });
       };
 
-      connection.onmessage = (event) => {
+      connection.onmessage = event => {
         let message = JSON.parse(event.data);
 
         switch (message.type) {
@@ -101,66 +129,23 @@ export default class MainContainer extends React.Component {
             this.setState({ chatMessages });
             break;
           case MSG_TYPES.REJECT_USERDATA:
-
+            alert(`Your login has been changed to ${message.login} because previous name is already taken.`);
             break;
         }
       };
 
+      connection.onclose = event => {
+        console.log('WebSocket connection has been closed.');
+      }
+
+      connection.onerror = event => {
+        console.error('WebSocket error observed:', event);
+      }
+
       this.setState({ connection });
 
       this.props.confirmLogIn();
-    }, 5000);*/
-
-    let connection = new WebSocket(SERVER_URL);
-
-    let breaker = 20;
-    let int = setInterval(() => {
-      breaker--;
-      if (connection.readyState === 1) {
-        console.log('Connected. ReadyState: OPEN.');
-        clearInterval(int);
-      }
-      else if (breaker == 0) {
-        breaker = 20;
-        connection = new WebSocket(SERVER_URL);
-        console.log('A new WebSocket connection will be created after 2000ms of waiting for the previous one.');
-      }
-    }, 100);
-
-    connection.onopen = (event) => {
-      this.setState({
-        controlsAreFrozen: false,
-        displayLoginBox: false,
-        onlineSectionHidden: false
-      });
-    };
-
-    connection.onmessage = (event) => {
-      let message = JSON.parse(event.data);
-
-      switch (message.type) {
-        case MSG_TYPES.ID:
-          this.setState({ clientID: message.id });
-          this.applyLoginBoxData();
-          break;
-        case MSG_TYPES.USERLIST:
-          this.setState({
-            usersOnline: message.users
-          });
-          break;
-        case MSG_TYPES.MESSAGE:
-          let chatMessages = [...this.state.chatMessages, message];
-          this.setState({ chatMessages });
-          break;
-        case MSG_TYPES.REJECT_USERDATA:
-
-          break;
-      }
-    };
-
-    this.setState({ connection });
-
-    this.props.confirmLogIn();
+    });
   }
 
   sendMessage() {
@@ -200,8 +185,16 @@ export default class MainContainer extends React.Component {
     this.setState({ userData });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.clientID !== this.state.clientID
+      || nextState.connection !== this.state.connection)
+      return false;
+
+    return true;
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('Main updated.');
+    // console.log('Main updated.');
 
     if (prevState.onlineSectionHidden !== this.state.onlineSectionHidden) {
       window.scrollTo({
