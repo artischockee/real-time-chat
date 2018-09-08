@@ -23,28 +23,6 @@ function getRandomUserImageSrc() {
   return `images/avatars/${imageNumber}.jpg`;
 }
 
-function getWorkingWebSocket() {
-  let connection = new WebSocket(SERVER_URL);
-
-  const ITER_COUNT = 20;
-  const DELAY = 100;
-
-  let breaker = ITER_COUNT;
-
-  let int = setInterval(() => {
-    if (connection.readyState === 1) {
-      clearInterval(int);
-    }
-    else if (breaker-- === 0) {
-      breaker = ITER_COUNT;
-      connection = new WebSocket(SERVER_URL);
-      console.log(`A new WebSocket connection created after ${ITER_COUNT * DELAY}ms of waiting for the previous one.`);
-    }
-  }, DELAY);
-
-  return connection;
-}
-
 @autobind
 export default class MainContainer extends React.Component {
   constructor(props) {
@@ -92,60 +70,75 @@ export default class MainContainer extends React.Component {
       return;
     }
 
-    let connection = null;
+    const ITER_COUNT = 20;
+    const DELAY = 100;
+    const MAX_RECREATING_TIMES = 5;
 
-    let createWorkingWS = new Promise((resolve, reject) => {
-      let webSocket = getWorkingWebSocket();
+    let connection = new WebSocket(SERVER_URL);
 
-      resolve(webSocket);
-    });
+    let iterCount = ITER_COUNT;
+    let maxRecreatingTimes = MAX_RECREATING_TIMES;
 
-    createWorkingWS.then((webSocketConnection) => {
-      connection = webSocketConnection;
-
-      connection.onopen = event => {
-        this.setState({
-          controlsAreFrozen: false,
-          displayLoginBox: false,
-          onlineSectionHidden: false
-        });
-      };
-
-      connection.onmessage = event => {
-        let message = JSON.parse(event.data);
-
-        switch (message.type) {
-          case MSG_TYPES.ID:
-            this.setState({ clientID: message.id });
-            this.applyLoginBoxData();
-            break;
-          case MSG_TYPES.USERLIST:
-            this.setState({
-              usersOnline: message.users
-            });
-            break;
-          case MSG_TYPES.MESSAGE:
-            let chatMessages = [...this.state.chatMessages, message];
-            this.setState({ chatMessages });
-            break;
-          case MSG_TYPES.REJECT_USERDATA:
-            alert(`Your login has been changed to ${message.login} because previous name is already taken.`);
-            break;
-        }
-      };
-
-      connection.onclose = event => {
-        console.log('WebSocket connection has been closed.');
+    let interval = setInterval(() => {
+      if (connection.readyState === 1) {
+        clearInterval(interval);
+        return;
       }
+      if (--iterCount === 0) {
+        iterCount = ITER_COUNT;
+        maxRecreatingTimes--;
 
-      connection.onerror = event => {
-        console.error('WebSocket error observed:', event);
+        connection = new WebSocket(SERVER_URL);
+        console.log(`A new WebSocket connection created after ${ITER_COUNT * DELAY}ms of waiting for the previous one.`);
       }
+      if (maxRecreatingTimes === 0) {
+        clearInterval(interval);
+        throw new Error('Could not establish the WebSocket connection.');
+      }
+    }, DELAY);
 
-      this.setState({ connection });
+    connection.onopen = event => {
+      this.setState({
+        controlsAreFrozen: false,
+        displayLoginBox: false,
+        onlineSectionHidden: false
+      });
+    };
 
-      this.props.confirmLogIn();
-    });
+    connection.onmessage = event => {
+      let message = JSON.parse(event.data);
+
+      switch (message.type) {
+        case MSG_TYPES.ID:
+          this.setState({ clientID: message.id });
+          this.applyLoginBoxData();
+          break;
+        case MSG_TYPES.USERLIST:
+          this.setState({
+            usersOnline: message.users
+          });
+          break;
+        case MSG_TYPES.MESSAGE:
+          let chatMessages = [...this.state.chatMessages, message];
+          this.setState({ chatMessages });
+          break;
+        case MSG_TYPES.REJECT_USERDATA:
+          alert(`Your login has been changed to ${message.login} because previous name is already taken.`);
+          break;
+      }
+    };
+
+    connection.onclose = event => {
+      console.log('WebSocket connection has been closed.');
+    }
+
+    connection.onerror = event => {
+      console.error('WebSocket error observed:', event);
+    }
+
+    this.setState({ connection });
+
+    this.props.confirmLogIn();
   }
 
   sendMessage() {
@@ -194,8 +187,6 @@ export default class MainContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    // console.log('Main updated.');
-
     if (prevState.onlineSectionHidden !== this.state.onlineSectionHidden) {
       window.scrollTo({
         top: 0,
