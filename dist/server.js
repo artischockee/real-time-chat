@@ -77,10 +77,15 @@ wsServer.on('connect', function (connection) {
   connection.on('message', function (message) {
     if (message.type !== 'utf8') return;
 
-    console.log('Received message: ' + message.utf8Data);
+    console.log(new Date() + ' Received message: ' + message.utf8Data);
 
     var parsedMessage = JSON.parse(message.utf8Data);
     var connect = getConnectionForID(parsedMessage.id);
+
+    if (connect === null) {
+      console.warn(new Date() + ' Couldn\'t find connection for ID ' + parsedMessage.id + '.');
+      return;
+    }
 
     switch (parsedMessage.type) {
       case "USERDATA":
