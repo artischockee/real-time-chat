@@ -56,9 +56,11 @@ export default class ChatContainer extends React.Component {
     if (this.props.displayLoginBox)
       return (
         <LoginBoxContainer
+          connectionState={this.props.connectionState}
           handleConnect={this.props.handleConnect}
           handleInputChange={this.props.handleLoginBoxChange}
           lang={this.props.lang}
+          sendFadeOutCallback={this.props.loginBoxCallback}
           userData={this.props.loginBoxUserData}
         />
       );
