@@ -17,6 +17,13 @@ const MSG_TYPES = {
   REJECT_USERDATA: 'REJECT_USERDATA'
 };
 
+const WS_STATES = {
+  'CONNECTING': 0,
+  'OPEN': 1,
+  'CLOSING': 2,
+  'CLOSED': 3
+};
+
 function getRandomUserImageSrc() {
   let imageNumber = Math.floor(Math.random() * 20) + 1;
 
@@ -45,6 +52,14 @@ export default class MainContainer extends React.Component {
     };
   }
 
+  getConnectionState() {
+    if (this.state.connection === null
+    || this.state.connection === undefined)
+      return null;
+
+    return this.state.connection.readyState;
+  }
+
   applyLoginBoxData() {
     let userData = this.state.userData;
     if (userData.image === '')
@@ -70,37 +85,11 @@ export default class MainContainer extends React.Component {
       return;
     }
 
-    const ITER_COUNT = 20;
-    const DELAY = 100;
-    const MAX_RECREATING_TIMES = 5;
-
     let connection = new WebSocket(SERVER_URL);
-
-    let iterCount = ITER_COUNT;
-    let maxRecreatingTimes = MAX_RECREATING_TIMES;
-
-    let interval = setInterval(() => {
-      if (connection.readyState === 1) {
-        clearInterval(interval);
-        return;
-      }
-      if (--iterCount === 0) {
-        iterCount = ITER_COUNT;
-        maxRecreatingTimes--;
-
-        connection = new WebSocket(SERVER_URL);
-        console.log(`A new WebSocket connection created after ${ITER_COUNT * DELAY}ms of waiting for the previous one.`);
-      }
-      if (maxRecreatingTimes === 0) {
-        clearInterval(interval);
-        throw new Error('Could not establish the WebSocket connection.');
-      }
-    }, DELAY);
 
     connection.onopen = event => {
       this.setState({
         controlsAreFrozen: false,
-        displayLoginBox: false,
         onlineSectionHidden: false
       });
     };
@@ -178,9 +167,15 @@ export default class MainContainer extends React.Component {
     this.setState({ userData });
   }
 
+  getLoginBoxCallback() {
+    this.setState({
+      displayLoginBox: false
+    });
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.clientID !== this.state.clientID
-      || nextState.connection !== this.state.connection)
+    || nextState.connection !== this.state.connection)
       return false;
 
     return true;
@@ -207,9 +202,10 @@ export default class MainContainer extends React.Component {
         chatHandleMessageBoxEnterKeyPress={this.chatHandleMessageBoxEnterKeyPress}
         chatMessages={this.state.chatMessages}
         chatMessageValue={this.state.message}
-        // connectionReadyState={}
+        connectionState={this.getConnectionState()}
         displayLoginBox={this.state.displayLoginBox}
         lang={this.props.lang}
+        loginBoxCallback={this.getLoginBoxCallback}
         loginBoxUserData={this.state.userData}
         onlineSectionHidden={this.state.onlineSectionHidden}
         onlineSectionUsersOnline={this.state.usersOnline}
