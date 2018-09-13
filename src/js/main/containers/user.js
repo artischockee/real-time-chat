@@ -15,10 +15,6 @@ export default class UserContainer extends React.Component {
       return null;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('User updated.');
-  }
-
   render() {
     return (
       <User
