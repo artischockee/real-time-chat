@@ -54,19 +54,25 @@ export default class LoginBoxContainer extends React.Component {
       currentFragment: FRAGMENT.LOADING
     });
 
-    // let interval = setInterval(() => {
-      // if (this.props.connectionState === 1) {
+    this.props.handleConnect();
+
+    let intervalLimiter = 100;
+
+    let interval = setInterval(() => {
+      if (this.props.connectionState === 1) {
         this.setState({
           fadeOutBeforeUnmount: true
         });
 
-        setTimeout(() => {
-          this.props.handleConnect();
-        }, 850);
+        setTimeout(this.props.sendFadeOutCallback, 850);
 
-        // clearInterval(interval);
-      // }
-    // }, 100);
+        clearInterval(interval);
+      }
+      if (--intervalLimiter === 0) {
+        console.error('WS connection timeout.');
+        clearInterval(interval);
+      }
+    }, 100);
   }
 
   render() {
