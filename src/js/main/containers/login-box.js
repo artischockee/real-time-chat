@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator';
 import LoginBox from '../components/login-box';
 import LoginBoxFormContainer from './login-box-form';
 import LoginBoxLoadingContainer from './login-box-loading';
+import { CALLBACK_STATE } from '../../auxiliary/states';
 
 const FRAGMENT = {
   FORM: 'FORM',
@@ -56,23 +57,25 @@ export default class LoginBoxContainer extends React.Component {
 
     this.props.handleConnect();
 
-    let intervalLimiter = 100;
+    let intervalLimiter = 600;
+    
+    setTimeout(() => {
+      let interval = setInterval(() => {
+        if (this.props.connectionState === 1) {
+          this.setState({
+            fadeOutBeforeUnmount: true
+          });
 
-    let interval = setInterval(() => {
-      if (this.props.connectionState === 1) {
-        this.setState({
-          fadeOutBeforeUnmount: true
-        });
-
-        setTimeout(this.props.sendFadeOutCallback, 850);
-
-        clearInterval(interval);
-      }
-      if (--intervalLimiter === 0) {
-        console.error('WS connection timeout.');
-        clearInterval(interval);
-      }
-    }, 100);
+          setTimeout(() => this.props.sendFadeOutCallback(CALLBACK_STATE.SUCCESS), 850);
+          clearInterval(interval);
+        }
+        if (--intervalLimiter === 0) {
+          console.error('WS connection timeout.');
+          this.props.sendFadeOutCallback(CALLBACK_STATE.FAILURE);
+          clearInterval(interval);
+        }
+      }, 100);
+    }, 1000);
   }
 
   render() {
