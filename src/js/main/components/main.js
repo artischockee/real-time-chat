@@ -13,6 +13,7 @@ const Main = (props) => {
       />
       <ChatContainer
         clientID={props.chatClientID}
+        connectionState={props.connectionState}
         controlsAreFrozen={props.chatControlsAreFrozen}
         displayLoginBox={props.displayLoginBox}
         handleConnect={props.chatHandleConnect}
@@ -21,6 +22,7 @@ const Main = (props) => {
         handleMessageBoxEnterKeyPress={props.chatHandleMessageBoxEnterKeyPress}
         handleMessageSending={props.chatHandleMessageSending}
         lang={props.lang}
+        loginBoxCallback={props.loginBoxCallback}
         loginBoxUserData={props.loginBoxUserData}
         messages={props.chatMessages}
         messageValue={props.chatMessageValue}
