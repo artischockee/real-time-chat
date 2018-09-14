@@ -161,8 +161,6 @@ export default class MainContainer extends React.Component {
   }
 
   getLoginBoxCallback(state) {
-    console.log('getLoginBoxCallback() : ' + state);
-
     switch (state) {
       case CALLBACK_STATE.SUCCESS:
         this.setState({
