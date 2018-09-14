@@ -39,6 +39,11 @@ const CHAT_ICON_ALT = {
   ru: 'Иконка чата'
 };
 
+const EMPTY_CHAT_PLACEHOLDER = {
+  en: 'Chat messages will be displayed here.',
+  ru: 'Сообщения чата будут показаны здесь.'
+};
+
 @autobind
 export default class ChatContainer extends React.Component {
   constructor(props) {
@@ -81,7 +86,7 @@ export default class ChatContainer extends React.Component {
             src="images/chat.svg"
           />
           <p className="empty-chat-placeholder__text">
-            Chat messages will be displayed here.
+            {EMPTY_CHAT_PLACEHOLDER[this.props.lang]}
           </p>
         </div>
       );
