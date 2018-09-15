@@ -1,44 +1,7 @@
-.main
-  display: flex
-  justify-content: center
-  margin-bottom: auto
-  position: relative
+@import "entry/main"
+@import "entry/form"
+@import "entry/users-online"
+@import "entry/chat"
+@import "entry/form-section"
 
-  .line-top, .line-bottom
-    background-color: $color-white
-    font-size: 1em
-    padding: .75em .5em
-
-  .line-top__section-title, .line-bottom__online
-    @extend %reset-margin-padding
-    color: $color-black-light
-    line-height: 1
-    text-align: center
-
-  .line-top
-    border-bottom: .0625em solid lighten($color-black-light, 50%)
-
-    &__section-title
-      font-size: 1.25em
-      font-weight: 500
-
-  .main-section
-    flex: auto
-    overflow-y: auto
-
-  .line-bottom
-    border-top: .0625em solid lighten($color-black-light, 50%)
-
-    &__online
-      font-size: 1em
-      font-weight: 500
-
-.users-online, .chat
-  background-color: rgba(255,255,255,.9)
-  box-shadow: 0 .5em 1em rgba(16, 16, 16, .2)
-  height: 36em
-
-@import "main/users-online"
-@import "main/chat"
-@import "main/login-box"
-@import "main/form-section"
+@import "chat/user-list"
