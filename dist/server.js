@@ -43,6 +43,12 @@ var APPEND_TO_MAKE_UNIQUE = 1;
 var connectionArray = [];
 var nextID = Date.now();
 
+function getRandomUserImageSrc() {
+  var imageNumber = Math.floor(Math.random() * 20) + 1;
+
+  return 'images/avatars/' + imageNumber + '.jpg';
+}
+
 var wsServer = new _websocket.server({
   httpServer: server,
   autoAcceptConnections: false
@@ -113,7 +119,7 @@ wsServer.on('connect', function (connection) {
 
         connect.clientLogin = parsedMessage.login;
         connect.clientSign = parsedMessage.sign;
-        connect.clientImage = parsedMessage.image;
+        connect.clientImage = getRandomUserImageSrc();
         sendUserListToAll();
         break;
       case "MESSAGE":
@@ -204,6 +210,7 @@ function sendToAllConnections(stringifiedData) {
   reactHotLoader.register(APPEND_TO_MAKE_UNIQUE, 'APPEND_TO_MAKE_UNIQUE', 'src/node/server.js');
   reactHotLoader.register(connectionArray, 'connectionArray', 'src/node/server.js');
   reactHotLoader.register(nextID, 'nextID', 'src/node/server.js');
+  reactHotLoader.register(getRandomUserImageSrc, 'getRandomUserImageSrc', 'src/node/server.js');
   reactHotLoader.register(wsServer, 'wsServer', 'src/node/server.js');
   reactHotLoader.register(originIsAllowed, 'originIsAllowed', 'src/node/server.js');
   reactHotLoader.register(isClientLoginUnique, 'isClientLoginUnique', 'src/node/server.js');
