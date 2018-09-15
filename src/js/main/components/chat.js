@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 const Chat = (props) => {
   return (
     <section className="chat">
-      {props.loginBoxContainer}
-
       <div className="line-top">
         <h1 className="line-top__section-title">{props.title}</h1>
       </div>
@@ -46,7 +44,6 @@ Chat.propTypes = {
   handleMessageBoxEnterKeyPress: PropTypes.func.isRequired,
   handleMessageSending: PropTypes.func.isRequired,
   handleScroll: PropTypes.func.isRequired,
-  loginBoxContainer: PropTypes.object,
   messages: PropTypes.arrayOf(PropTypes.object),
   messageValue: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,

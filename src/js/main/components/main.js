@@ -13,7 +13,6 @@ const Main = (props) => {
       />
       <ChatContainer
         clientID={props.chatClientID}
-        connectionState={props.connectionState}
         controlsAreFrozen={props.chatControlsAreFrozen}
         displayLoginBox={props.displayLoginBox}
         handleConnect={props.chatHandleConnect}

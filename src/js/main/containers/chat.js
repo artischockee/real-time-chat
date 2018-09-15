@@ -1,7 +1,6 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import Chat from '../components/chat';
-import LoginBoxContainer from './login-box';
 import UserMessagesContainer from './user-messages';
 
 function alignTimeValue(timeValue) {
@@ -50,22 +49,6 @@ export default class ChatContainer extends React.Component {
       chatAttachedToEnd: true,
       lastMessageClientID: 0
     };
-  }
-
-  getLoginBoxContainer() {
-    if (this.props.displayLoginBox)
-      return (
-        <LoginBoxContainer
-          connectionState={this.props.connectionState}
-          handleConnect={this.props.handleConnect}
-          handleInputChange={this.props.handleLoginBoxChange}
-          lang={this.props.lang}
-          sendFadeOutCallback={this.props.loginBoxCallback}
-          userData={this.props.loginBoxUserData}
-        />
-      );
-    else
-      return null;
   }
 
   getEmptyChatPlaceholder() {
@@ -181,7 +164,6 @@ export default class ChatContainer extends React.Component {
         handleMessageBoxEnterKeyPress={this.props.handleMessageBoxEnterKeyPress}
         handleMessageSending={this.props.handleMessageSending}
         handleScroll={this.handleScroll}
-        loginBoxContainer={this.getLoginBoxContainer()}
         messages={this.getUserMessages()}
         messageValue={this.props.messageValue}
         placeholder={PLACEHOLDER[this.props.lang]}
