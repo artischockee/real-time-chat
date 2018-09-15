@@ -29,6 +29,12 @@ const APPEND_TO_MAKE_UNIQUE = 1;
 let connectionArray = [];
 let nextID = Date.now();
 
+function getRandomUserImageSrc() {
+  let imageNumber = Math.floor(Math.random() * 20) + 1;
+
+  return `images/avatars/${imageNumber}.jpg`;
+}
+
 let wsServer = new WebSocketServer({
   httpServer: server,
   autoAcceptConnections: false
@@ -101,7 +107,7 @@ wsServer.on('connect', connection => {
 
         connect.clientLogin = parsedMessage.login;
         connect.clientSign = parsedMessage.sign;
-        connect.clientImage = parsedMessage.image;
+        connect.clientImage = getRandomUserImageSrc();
         sendUserListToAll();
         break;
       case "MESSAGE":
