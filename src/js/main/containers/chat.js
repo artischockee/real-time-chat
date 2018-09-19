@@ -51,25 +51,6 @@ export default class ChatContainer extends React.Component {
     };
   }
 
-  getEmptyChatPlaceholder() {
-    if (
-      this.props.messages === undefined
-      || this.props.messages.length == 0
-    ) {
-      return (
-        <div className="empty-chat-placeholder">
-          <img
-            alt={CHAT_ICON_ALT[this.props.lang]}
-            className="empty-chat-placeholder__icon"
-            src="images/chat.svg"
-          />
-          <p className="empty-chat-placeholder__text">
-            Chat messages will be displayed here.
-          </p>
-        </div>
-      );
-    }
-
     return null;
   }
 
