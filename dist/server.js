@@ -124,7 +124,6 @@ wsServer.on('connect', function (connection) {
         break;
       case "MESSAGE":
         parsedMessage.login = connect.clientLogin;
-        parsedMessage.sign = connect.clientSign;
         parsedMessage.image = connect.clientImage;
         break;
     }
