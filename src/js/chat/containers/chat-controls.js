@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import ChatControls from '../components/chat-controls';
 import SVGNotificationsOn from '../../svg-components/notifications-on';
 import SVGNotificationsOff from '../../svg-components/notifications-off';
-import { BTN_NAMES } from '../../auxiliary/chat-button-names';
+import { CHAT_BUTTONS } from '../../auxiliary/button-names';
 
 @autobind
 export default class ChatControlsContainer extends React.Component {
@@ -34,14 +34,12 @@ export default class ChatControlsContainer extends React.Component {
 
   handleClick(event) {
     switch (event.target.name) {
-      case BTN_NAMES.NOTIFICATIONS:
+      case CHAT_BUTTONS.NOTIFICATIONS:
         this.switchNotificationIcon();
         break;
-      case BTN_NAMES.DEL_MESSAGES:
-
+      case CHAT_BUTTONS.DEL_MESSAGES:
+        this.props.handleMsgDelete();
         break;
-      default:
-
     }
   }
 

@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { APP_NAME } from '../../auxiliary/app-name';
 import SVGTrashCan from '../../svg-components/trash-can';
-
-
-
-
-import { BTN_NAMES } from '../../auxiliary/chat-button-names';
+import { APP_NAME } from '../../auxiliary/app-name';
+import { CHAT_BUTTONS } from '../../auxiliary/button-names';
 
 const ChatControls = props => {
   return (
@@ -16,11 +12,11 @@ const ChatControls = props => {
 
       <div className="main-panel__chat-controls">
 
-        <button name={BTN_NAMES.NOTIFICATIONS} className="chat__control-button" onClick={props.handleClick}>
+        <button name={CHAT_BUTTONS.NOTIFICATIONS} className="chat__control-button" onClick={props.handleClick}>
           {props.notificationIcon}
         </button>
 
-        <button name={BTN_NAMES.DEL_MESSAGES} className="chat__control-button" onClick={props.handleClick}>
+        <button name={CHAT_BUTTONS.DEL_MESSAGES} className="chat__control-button" onClick={props.handleClick}>
           <SVGTrashCan className="control-button__svg" />
         </button>
 
@@ -31,7 +27,8 @@ const ChatControls = props => {
 };
 
 ChatControls.propTypes = {
-
+  handleClick: PropTypes.func.isRequired,
+  notificationIcon: PropTypes.object.isRequired
 };
 
 export default ChatControls;
