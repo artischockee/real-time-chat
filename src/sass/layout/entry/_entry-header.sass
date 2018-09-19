@@ -1,0 +1,30 @@
+.entry-header
+  @extend %flex-row-wrap
+  align-items: center
+  color: white
+  background-color: $cl-primary
+  padding: 1em 1.5em
+
+  &__logo
+    width: 3em
+    height: auto
+    margin-right: 1em
+
+  &__title
+    font-weight: 500
+    font-size: 1.5em
+    line-height: 1.5
+    margin: 0
+    pointer-events: none
+
+  &__list
+    @extend %reset-margin-padding
+    display: flex
+    margin-left: auto
+
+  &__list-item
+    list-style: none
+    margin-right: 1em
+
+    &:last-child
+      margin-right: 0

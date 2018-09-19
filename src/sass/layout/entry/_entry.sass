@@ -1,0 +1,47 @@
+.entry
+  max-width: 54em
+  transition: transform 300ms ease-out
+  width: 90%
+
+  &_flip-out
+    transform: translateX(200%)
+
+  &__box-wrapper
+    background-color: white
+    box-shadow: 0 .125em 1em $cl-shadow-light
+    border-radius: .5em
+    overflow: hidden
+
+    .entry-main
+      @extend %flex-col-nowrap
+      padding: 1em 1.5em
+
+      &__form-wrapper
+        align-items: center
+        display: flex
+        justify-content: center
+        margin: 2em 0
+
+  &__lang-wrapper
+    display: flex
+    justify-content: center
+
+  &__lang-list
+    @extend %reset-margin-padding
+    display: flex
+    margin-top: .75em
+
+  &__list-item
+    cursor: pointer
+    color: $cl-black-l2
+    font-size: .9em
+    list-style: none
+    margin-right: 1em
+    position: relative
+    transition: color 250ms ease-out
+
+    &:hover
+      color: $cl-black-l3
+
+    &:last-child
+      margin-right: 0

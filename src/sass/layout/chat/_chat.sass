@@ -1,0 +1,40 @@
+.chat
+  background-color: white
+  box-shadow: 0 .125em 1em $cl-shadow-light
+  display: flex
+  height: 42em
+  max-height: 90%
+  max-width: 54em
+  width: 90%
+
+  &__side-panel, &__main-panel
+    @extend %flex-col-nowrap
+
+  &__side-panel
+    background-color: $cl-primary
+
+  &__main-panel
+    flex: auto
+
+  &__control-button
+    background-color: transparent
+    border: none
+    cursor: pointer
+    display: flex
+    margin-right: .5em
+    outline: none
+    padding: 0 .5em
+
+    &:last-of-type
+      margin-right: 0
+
+    &:hover .control-button__svg
+      fill: $cl-gray-l3
+
+.control-button
+  &__svg
+    fill: $cl-gray-l2
+    height: auto
+    pointer-events: none
+    transition: fill 200ms ease-out
+    width: 1.5em
