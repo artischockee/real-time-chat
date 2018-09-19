@@ -14,6 +14,7 @@ const Chat = props => {
       <MainPanelContainer
         handleMsgBoxChange={props.handleMsgBoxChange}
         handleMsgBoxKeyUp={props.handleMsgBoxKeyUp}
+        handleMsgDelete={props.handleMsgDelete}
         lang={props.lang}
         messages={props.messages}
         messageValue={props.messageValue}
@@ -25,7 +26,15 @@ const Chat = props => {
 };
 
 Chat.propTypes = {
-
+  handleMsgBoxChange: PropTypes.func.isRequired,
+  handleMsgBoxKeyUp: PropTypes.func.isRequired,
+  handleMsgDelete: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.object),
+  messageValue: PropTypes.string,
+  msgDeleteDialog: PropTypes.object,
+  shouldNotificationSoundPlay: PropTypes.func.isRequired,
+  userList: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Chat;

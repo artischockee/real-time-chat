@@ -9,6 +9,7 @@ const MainPanel = props => {
     <section className="chat__main-panel">
 
       <ChatControlsContainer
+        handleMsgDelete={props.handleMsgDelete}
         shouldNotificationSoundPlay={props.shouldNotificationSoundPlay}
       />
 
