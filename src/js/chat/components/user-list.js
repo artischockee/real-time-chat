@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const UserList = (props) => {
+const UserList = props => {
   return (
     <ul className="user-list">
       {props.userList}

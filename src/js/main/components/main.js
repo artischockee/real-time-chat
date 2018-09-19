@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import UsersOnlineContainer from '../containers/users-online';
 import ChatContainer from '../containers/chat';
 
-const Main = (props) => {
+const Main = props => {
   return (
     <main className="main">
       <UsersOnlineContainer

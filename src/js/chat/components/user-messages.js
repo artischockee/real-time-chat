@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const UserMessages = (props) => {
+const UserMessages = props => {
   return (
     <div className="user-messages">
       <div className="user-messages__image-wrapper">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SVGLogo from '../../svg-components/logo';
 
-const EmptyChatPlaceholder = (props) => {
+const EmptyChatPlaceholder = props => {
   return (
     <div className="empty-chat-placeholder">
 

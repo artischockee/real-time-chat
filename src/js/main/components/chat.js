@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Chat = (props) => {
+const Chat = props => {
   return (
     <section className="chat">
       <div className="line-top">

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LoginBoxLoading = (props) => {
+const LoginBoxLoading = props => {
   return (
     <div className={props.classList}>
       <p className="inscription">{props.inscription}</p>

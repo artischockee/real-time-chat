@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EntryBoxContainer from '../containers/entry-box';
 import EntryLangContainer from '../containers/entry-lang';
 
-const Entry = (props) => {
+const Entry = props => {
   return (
     <div className={props.classList}>
       <EntryBoxContainer

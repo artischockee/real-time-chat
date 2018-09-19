@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormSectionContainer from './form-section';
 
-const LangChooser = (props) => {
+const LangChooser = props => {
   return (
     <div className={props.wrapperClassList}>
       <div className="language-chooser">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormSectionContainer from '../containers/form-section';
 
-const EntryMain = (props) => {
+const EntryMain = props => {
   return (
     <div className="entry-main">
       <div className="entry-form">

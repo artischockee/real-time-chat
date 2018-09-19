@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import EntryHeaderContainer from '../containers/entry-header';
 import EntryMainContainer from '../containers/entry-main';
 
-const EntryBox = (props) => {
+const EntryBox = props => {
   return (
     <div className="entry__box-wrapper">
 

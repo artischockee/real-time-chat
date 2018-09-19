@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserListContainer from '../containers/user-list';
 
-const SidePanel = (props) => {
+const SidePanel = props => {
   return (
     <section className="chat__side-panel">
 

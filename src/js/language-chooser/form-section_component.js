@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormSection = (props) => {
+const FormSection = props => {
   return (
     <div className="lang-chooser-form__section">
       <label className={props.labelClassList}>

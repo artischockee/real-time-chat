@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const User = (props) => {
+const User = props => {
   return (
     <li className="user-list__user">
       <div className="user__image-wrapper">

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const EntryLang = (props) => {
+const EntryLang = props => {
   return (
     <div className="entry__lang-wrapper">
       <ul className="entry__lang-list">

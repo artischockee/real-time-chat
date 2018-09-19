@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SVGLogo from '../../svg-components/logo';
 
-const EntryHeader = (props) => {
+const EntryHeader = props => {
   return (
     <div className="entry-header">
       <SVGLogo className="entry-header__logo" />
