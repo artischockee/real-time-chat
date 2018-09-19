@@ -143,6 +143,17 @@ class App extends React.Component {
     this.setState({ userData });
   }
 
+  handleMsgBoxKeyUp(event) {
+    if (event.key === 'Enter')
+      this.sendMessage();
+  }
+
+  handleMsgBoxChange(event) {
+    this.setState({
+      message: event.target.value
+    });
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('App updated.');
   }
@@ -162,9 +173,15 @@ class App extends React.Component {
       case FRAGMENTS.CHAT:
         return (
           <ChatContainer
+            clientID={this.state.clientID}
+            handleMsgBoxChange={this.handleMsgBoxChange}
+            handleMsgBoxKeyUp={this.handleMsgBoxKeyUp}
             lang={this.state.language}
             messages={this.state.chatMessages}
+            messageValue={this.state.message}
             userList={this.state.usersOnline}
+
+            handleControlClick={this.handleControlClick}
           />
         );
       default:
