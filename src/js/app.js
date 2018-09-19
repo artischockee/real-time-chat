@@ -161,7 +161,9 @@ class App extends React.Component {
         );
       case FRAGMENTS.CHAT:
         return (
-          <ChatContainer />
+          <ChatContainer
+            userList={this.state.usersOnline}
+          />
         );
       default:
         throw new Error('Could not find an appropriate fragment.');
