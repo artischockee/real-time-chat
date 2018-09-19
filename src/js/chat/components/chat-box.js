@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChatBox = (props) => {
+const ChatBox = props => {
   return (
     <div className="main-panel__chat-container">
 
@@ -13,7 +13,8 @@ const ChatBox = (props) => {
 };
 
 ChatBox.propTypes = {
-
+  emptyChatPlaceholder: PropTypes.object,
+  messages: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default ChatBox;
