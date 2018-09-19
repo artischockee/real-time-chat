@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SidePanelContainer from '../containers/side-panel';
 import MainPanelContainer from '../containers/main-panel';
 
-const Chat = (props) => {
+const Chat = props => {
   return (
     <div className="chat">
 
@@ -12,8 +12,12 @@ const Chat = (props) => {
       />
 
       <MainPanelContainer
+        handleMsgBoxChange={props.handleMsgBoxChange}
+        handleMsgBoxKeyUp={props.handleMsgBoxKeyUp}
         lang={props.lang}
         messages={props.messages}
+        messageValue={props.messageValue}
+        shouldNotificationSoundPlay={props.shouldNotificationSoundPlay}
       />
 
     </div>
