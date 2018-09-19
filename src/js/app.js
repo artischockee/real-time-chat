@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator';
 import { hot } from 'react-hot-loader';
 import EntryContainer from './entry/containers/entry';
 import ChatContainer from './chat/containers/chat';
+import MsgDeleteDialogContainer from './dialogs/containers/msg-delete-dialog';
 import { LANGUAGE } from './auxiliary/language';
 import { WS_STATES, CALLBACK_STATE } from './auxiliary/states';
 
@@ -36,6 +37,7 @@ class App extends React.Component {
       connection: null,
       clientID: 0,
       currentFragment: FRAGMENTS.ENTRY,
+      displayMsgDeleteDialog: false,
       language: LANGUAGE.EN.SHORT,
       message: '',
       usersOnline: [],
@@ -154,6 +156,38 @@ class App extends React.Component {
     });
   }
 
+  handleMsgDelete() {
+    let chatMessages = this.state.chatMessages;
+
+    chatMessages.length = 0;
+
+    this.setState({
+      chatMessages
+    });
+
+    this.toggleMsgDeleteDialog();
+  }
+
+  getMsgDeleteDialog() {
+    if (this.state.displayMsgDeleteDialog)
+      return (
+        <MsgDeleteDialogContainer
+          handleDialogClose={this.toggleMsgDeleteDialog}
+          handleDeleteAccept={this.handleMsgDelete}
+        />
+      );
+    else
+      return null;
+  }
+
+  toggleMsgDeleteDialog() {
+    let displayMsgDeleteDialog = !this.state.displayMsgDeleteDialog;
+
+    this.setState({
+      displayMsgDeleteDialog
+    });
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log('App updated.');
   }
@@ -172,20 +206,25 @@ class App extends React.Component {
         );
       case FRAGMENTS.CHAT:
         return (
-          <ChatContainer
-            clientID={this.state.clientID}
-            handleMsgBoxChange={this.handleMsgBoxChange}
-            handleMsgBoxKeyUp={this.handleMsgBoxKeyUp}
-            lang={this.state.language}
-            messages={this.state.chatMessages}
-            messageValue={this.state.message}
-            userList={this.state.usersOnline}
+          <React.Fragment>
 
-            handleControlClick={this.handleControlClick}
-          />
+            {this.getMsgDeleteDialog()}
+
+            <ChatContainer
+              clientID={this.state.clientID}
+              handleMsgBoxChange={this.handleMsgBoxChange}
+              handleMsgBoxKeyUp={this.handleMsgBoxKeyUp}
+              handleMsgDelete={this.toggleMsgDeleteDialog}
+              lang={this.state.language}
+              messages={this.state.chatMessages}
+              messageValue={this.state.message}
+              userList={this.state.usersOnline}
+
+              handleControlClick={this.handleControlClick}
+            />
+
+          </React.Fragment>
         );
-      default:
-        throw new Error('Could not find an appropriate fragment.');
     }
   }
 }
