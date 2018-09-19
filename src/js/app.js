@@ -162,6 +162,8 @@ class App extends React.Component {
       case FRAGMENTS.CHAT:
         return (
           <ChatContainer
+            lang={this.state.language}
+            messages={this.state.chatMessages}
             userList={this.state.usersOnline}
           />
         );
