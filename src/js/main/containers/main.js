@@ -10,11 +10,6 @@ export default class MainContainer extends React.Component {
     });
   }
 
-  chatHandleMessageBoxEnterKeyPress(event) {
-    if (!this.state.controlsAreFrozen && event.key === 'Enter')
-      this.sendMessage();
-  }
-
   getLoginBoxCallback(state) {
     console.log('getLoginBoxCallback() : ' + state);
 

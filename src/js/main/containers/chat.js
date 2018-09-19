@@ -54,54 +54,6 @@ export default class ChatContainer extends React.Component {
     return null;
   }
 
-  getUserMessages() {
-    // For the 1st rendering process
-    // there is no need in exec this function
-    // (p.s. props.messages is an Array).
-    if (this.props.messages === undefined
-    || this.props.messages.length == 0)
-      return null;
-
-    let msgArray = this.props.messages;
-
-    let combinedUserMessages = [];
-    let combinedIndex = 0;
-
-    msgArray.forEach((item, index, msgArray) => {
-      if (index == 0 || item.id !== msgArray[index - 1].id) {
-        combinedUserMessages.push({
-          date: item.date,
-          id: item.id,
-          image: item.image,
-          login: item.login,
-          sign: item.sign,
-          text: item.text instanceof Array ? [...item.text] : [item.text]
-        });
-
-        combinedIndex = combinedUserMessages.length - 1;
-      }
-
-      else {
-        let sameUserDataMsg = combinedUserMessages[combinedIndex].text;
-        combinedUserMessages[combinedIndex].text = [...sameUserDataMsg, item.text];
-      }
-    });
-
-    return combinedUserMessages.map((item, index) => {
-      let time = assemblyMessageDate(item.date);
-      return (
-        <UserMessagesContainer
-          image={item.image}
-          key={index}
-          login={item.login}
-          messages={item.text}
-          sign={item.sign}
-          time={time}
-        />
-      )
-    });
-  }
-
   handleScroll() {
     let chatWindow = this.chatWindowRef.current;
 
