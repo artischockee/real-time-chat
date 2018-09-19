@@ -112,7 +112,6 @@ wsServer.on('connect', connection => {
         break;
       case "MESSAGE":
         parsedMessage.login = connect.clientLogin;
-        parsedMessage.sign = connect.clientSign;
         parsedMessage.image = connect.clientImage;
         break;
     }
