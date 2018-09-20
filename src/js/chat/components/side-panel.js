@@ -16,9 +16,11 @@ const SidePanel = props => {
       </div>
 
       <div className="side-panel__online-container">
-        <UserListContainer
-          userList={props.userList}
-        />
+
+        {props.noSearchMatchesElement}
+
+        <UserListContainer userList={props.userList} />
+
       </div>
 
       <div className="side-panel__controls-container">
