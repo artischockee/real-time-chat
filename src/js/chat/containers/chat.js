@@ -54,6 +54,7 @@ export default class ChatContainer extends React.Component {
   render() {
     return (
       <Chat
+        clientID={this.props.clientID}
         handleMsgBoxChange={this.props.handleMsgBoxChange}
         handleMsgBoxKeyUp={this.props.handleMsgBoxKeyUp}
         handleMsgDelete={this.props.handleMsgDelete}

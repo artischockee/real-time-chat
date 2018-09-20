@@ -7,6 +7,7 @@ export default class MainPanelContainer extends React.Component {
   render() {
     return (
       <MainPanel
+        clientID={this.props.clientID}
         handleMsgBoxChange={this.props.handleMsgBoxChange}
         handleMsgBoxKeyUp={this.props.handleMsgBoxKeyUp}
         handleMsgDelete={this.props.handleMsgDelete}

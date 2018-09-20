@@ -14,6 +14,7 @@ const Chat = props => {
       />
 
       <MainPanelContainer
+        clientID={props.clientID}
         handleMsgBoxChange={props.handleMsgBoxChange}
         handleMsgBoxKeyUp={props.handleMsgBoxKeyUp}
         handleMsgDelete={props.handleMsgDelete}
