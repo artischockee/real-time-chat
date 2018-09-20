@@ -4,31 +4,19 @@ import SidePanel from '../components/side-panel';
 
 @autobind
 export default class SidePanelContainer extends React.Component {
-  constructor(props) {
-    super(props);
+  getNoSearchMatchesElement() {
+    if (
+      this.props.searchValue !== ''
+      && this.props.userList.length === 0
+    )
+      return (
+        <div className="no-matches">
+          <p className="no-matches__text">No matches found.</p>
+        </div>
+      );
 
-    this.state = {
-      searchValue: ''
-    }
-  }
-
-  getFilteredUserList() {
-    if (this.state.searchValue === '')
-      return this.props.userList;
-
-    return this.props.userList.filter(user => {
-      let login = user.login.toLowerCase();
-      let sign = user.sign.toLowerCase();
-      let searchValue = this.state.searchValue.toLowerCase();
-
-      return login.includes(searchValue) || sign.includes(searchValue);
-    });
-  }
-
-  handleSearchChange(event) {
-    this.setState({
-      searchValue: event.target.value
-    });
+    else
+      return null;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -38,9 +26,10 @@ export default class SidePanelContainer extends React.Component {
   render() {
     return (
       <SidePanel
-        handleSearchChange={this.handleSearchChange}
-        searchValue={this.state.searchValue}
-        userList={this.getFilteredUserList()}
+        handleSearchChange={this.props.handleSearchChange}
+        noSearchMatchesElement={this.getNoSearchMatchesElement()}
+        searchValue={this.props.searchValue}
+        userList={this.props.userList}
       />
     );
   }
