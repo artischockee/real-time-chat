@@ -18,21 +18,25 @@ const ChatInput = props => {
         </svg>
       </button>
 
-      <input
-        onChange={props.handleMsgBoxChange}
-        onKeyUp={props.handleMsgBoxKeyUp}
-        placeholder={props.placeholder}
-        type="text"
-        value={props.messageValue}
-      />
+      <div className="input-wrapper">
+        <input
+          className="input-wrapper__input"
+          onChange={props.handleMsgBoxChange}
+          onKeyUp={props.handleMsgBoxKeyUp}
+          placeholder={props.placeholder}
+          type="text"
+          value={props.messageValue}
+        />
 
-      <button name={CHAT_BUTTONS.EMOJI} className="chat__control-button" onClick={props.handleControlClick}>
-        <svg className="control-button__svg" width="510" height="510" viewBox="0 0 510 510" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <button name={CHAT_BUTTONS.EMOJI} className="chat__control-button" onClick={props.handleControlClick}>
+          <svg className="control-button__svg" width="510" height="510" viewBox="0 0 510 510" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
             <path d="m344.25 229.5c20.4 0 38.25-17.85 38.25-38.25s-17.85-38.25-38.25-38.25-38.25 17.85-38.25 38.25 17.85 38.25 38.25 38.25zm-178.5 0c20.4 0 38.25-17.85 38.25-38.25s-17.85-38.25-38.25-38.25-38.25 17.85-38.25 38.25 17.85 38.25 38.25 38.25zm89.25 178.5c66.3 0 122.4-43.35 145.35-102h-290.7c22.95 58.65 79.05 102 145.35 102zm0-408c-140.25 0-255 114.75-255 255s114.75 255 255 255 255-114.75 255-255-114.75-255-255-255zm0 459c-112.2 0-204-91.8-204-204s91.8-204 204-204 204 91.8 204 204-91.8 204-204 204z"/>
           </g>
         </svg>
       </button>
+      </div>
+
     </div>
   );
 };
