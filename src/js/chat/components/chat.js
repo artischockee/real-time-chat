@@ -8,6 +8,8 @@ const Chat = props => {
     <div className="chat">
 
       <SidePanelContainer
+        handleSearchChange={props.handleSearchChange}
+        searchValue={props.searchValue}
         userList={props.userList}
       />
 
