@@ -23,6 +23,12 @@ function assemblyMessageDate(rawDate) {
 export default class ChatBoxContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.chatWindowRef = React.createRef();
+
+    this.state = {
+      chatAttachedToEnd: true
+    };
   }
 
   getEmptyChatPlaceholder() {
@@ -37,6 +43,9 @@ export default class ChatBoxContainer extends React.Component {
   }
 
   getMessages() {
+    // For the 1st rendering process
+    // there is no need in exec this function
+    // (p.s. props.messages is an Array).
     if (this.props.messages.length === 0)
       return null;
 
@@ -77,11 +86,46 @@ export default class ChatBoxContainer extends React.Component {
     });
   }
 
+  handleScroll() {
+    let chatWindow = this.chatWindowRef.current;
+
+    let chatAttachedToEnd =
+      chatWindow.scrollTop + chatWindow.clientHeight === chatWindow.scrollHeight;
+
+    // Escape render() spamming while scrolling the chat:
+    if (this.state.chatAttachedToEnd === chatAttachedToEnd)
+      return;
+
+    this.setState({ chatAttachedToEnd });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.chatAttachedToEnd !== this.state.chatAttachedToEnd)
+      return false;
+
+    return true;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages.length === this.props.messages.length)
+      return;
+
+    let chatWindow = this.chatWindowRef.current;
+
+    if (
+      this.props.clientID === this.props.messages[this.props.messages.length - 1].id
+      || this.state.chatAttachedToEnd
+    )
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
   render() {
     return (
       <ChatBox
         emptyChatPlaceholder={this.getEmptyChatPlaceholder()}
+        handleScroll={this.handleScroll}
         messages={this.getMessages()}
+        windowRef={this.chatWindowRef}
       />
     );
   }
