@@ -10,8 +10,28 @@ export default class ChatContainer extends React.Component {
     super(props);
 
     this.state = {
-      notificationSoundShouldPlay: true
+      notificationSoundShouldPlay: true,
+      searchValue: ''
     }
+  }
+
+  getFilteredUserList() {
+    if (this.state.searchValue === '')
+      return this.props.userList;
+
+    return this.props.userList.filter(user => {
+      let login = user.login.toLowerCase();
+      let sign = user.sign.toLowerCase();
+      let searchValue = this.state.searchValue.toLowerCase();
+
+      return login.includes(searchValue) || sign.includes(searchValue);
+    });
+  }
+
+  handleSearchChange(event) {
+    this.setState({
+      searchValue: event.target.value
+    });
   }
 
   shouldNotificationSoundPlay(state) {
@@ -37,11 +57,13 @@ export default class ChatContainer extends React.Component {
         handleMsgBoxChange={this.props.handleMsgBoxChange}
         handleMsgBoxKeyUp={this.props.handleMsgBoxKeyUp}
         handleMsgDelete={this.props.handleMsgDelete}
+        handleSearchChange={this.handleSearchChange}
         lang={this.props.lang}
         messages={this.props.messages}
         messageValue={this.props.messageValue}
+        searchValue={this.state.searchValue}
         shouldNotificationSoundPlay={this.shouldNotificationSoundPlay}
-        userList={this.props.userList}
+        userList={this.getFilteredUserList()}
       />
     );
   }
