@@ -1,23 +1,41 @@
 .side-panel
   &__search-container, &__controls-container
+    box-sizing: border-box
     display: flex
-    height: 2em
-    min-height: 2em
+    height: 4.0625em
     padding: 1em
 
   &__search-container
-    border-bottom: .0625em solid $cl-primary-d2
+    border-bottom: .0625em solid $cl-primary-d1
+
+    .search-wrapper
+      background-color: $cl-primary-l1
+      display: flex
+
+      &__svg
+        fill: $cl-black-l3
+        height: auto
+        margin-left: .75em
+        pointer-events: none
+        width: 1.1em
+
+      &__search
+        background-color: transparent
+        border: 0
+        color: $cl-black-l3
+        font-family: $font-stack
+        outline: none
+        padding: .5em 1em
 
   &__controls-container
-    border-top: .0625em solid $cl-primary-d2
+    border-top: .0625em solid $cl-primary-d1
+
+    .controls
+      &__svg
+        fill: $cl-black-l2
+        height: auto
+        width: 1.1em
 
   &__online-container
     flex: auto
     overflow-y: auto
-
-  &__search-field
-    background-color: $cl-primary-l1
-    border: 0
-    font-family: $font-stack
-    outline: none
-    padding: .5em 1em

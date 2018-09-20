@@ -1,16 +1,32 @@
 .main-panel
+  &__controls-container, &__input-container
+    box-sizing: border-box
+    display: flex
+    height: 4.0625em
+
   &__controls-container
     align-items: center
-    display: flex
-    height: 2em
-    min-height: 2em
+    border-bottom: .0625em solid $cl-white-d2
+    justify-content: space-between
     padding: 1em
 
-  &__controls-container
-    border-bottom: .0625em solid $cl-white-d2
-
   &__input-container
+    align-items: stretch
     border-top: .0625em solid $cl-white-d2
+    padding: .75em 1em
+
+    .input-wrapper
+      border: .0625em solid $cl-white-d2
+      border-radius: .25em
+      display: flex
+      flex: auto
+      padding: 0 .5em
+
+      &__input
+        border: none
+        flex: auto
+        outline: none
+        padding: 0
 
   &__chat-container
     flex: auto
@@ -26,14 +42,6 @@
   &__chat-controls
     display: flex
     height: 100%
-    margin-left: auto
-
-  &__input-container
-    align-items: center
-    display: flex
-    height: 2em
-    min-height: 2em
-    padding: 1em
 
   &__attachment-icon
     width: 1.5em
