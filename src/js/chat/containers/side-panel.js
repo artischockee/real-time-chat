@@ -4,6 +4,19 @@ import SidePanel from '../components/side-panel';
 
 @autobind
 export default class SidePanelContainer extends React.Component {
+  getClassList() {
+    let classList = 'chat__side-panel';
+
+    if (this.props.isMobileVersion) {
+      if (this.props.displaySidePanelOnMobile)
+        classList += ` ${classList}_visible`;
+      else
+        classList += ` ${classList}_hidden`;
+    }
+
+    return classList;
+  }
+
   getNoSearchMatchesElement() {
     if (
       this.props.searchValue !== ''
@@ -26,6 +39,7 @@ export default class SidePanelContainer extends React.Component {
   render() {
     return (
       <SidePanel
+        classList={this.getClassList()}
         handleSearchChange={this.props.handleSearchChange}
         noSearchMatchesElement={this.getNoSearchMatchesElement()}
         searchValue={this.props.searchValue}
