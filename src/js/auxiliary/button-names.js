@@ -2,6 +2,7 @@ export const CHAT_BUTTONS = {
   ATTACHMENT: 'attachment',
   DEL_MESSAGES: 'delete-messages',
   EMOJI: 'emoji',
+  MENU: 'menu',
   NOTIFICATIONS: 'notifications'
 };
 
