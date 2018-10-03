@@ -12,11 +12,34 @@
 
   &__side-panel
     background-color: $cl-primary
+    width: 30%
+
+  &__fade-component
+    background-color: $cl-half-opaque
+    height: 100%
+    left: 0
+    position: absolute
+    top: 0
+    transition:
+      duration: 350ms
+      property: opacity, visibility
+      timing-function: ease-out
+    width: 100%
+    z-index: 9
+
+    &_visible
+      visibility: visible
+      opacity: 1
+
+    &_hidden
+      visibility: hidden
+      opacity: 0
 
   &__main-panel
-    flex: auto
+    width: 70%
 
   &__control-button
+    align-items: center
     background-color: transparent
     border: none
     cursor: pointer
@@ -25,7 +48,11 @@
     outline: none
     padding: 0 .5em
 
-    &:last-of-type
+    &_menu
+      display: none
+      margin-right: 1em
+
+    &:last-child
       margin-right: 0
 
     &:hover .control-button__svg
