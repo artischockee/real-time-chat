@@ -9,15 +9,15 @@ const EmptyChatPlaceholder = props => {
       <SVGLogo className="empty-chat-placeholder__svg" />
 
       <p className="empty-chat-placeholder__text">
-        {props.inscription}
+        Chat messages will be displayed here.
       </p>
-      
+
     </div>
   );
 };
 
 EmptyChatPlaceholder.propTypes = {
-  inscription: PropTypes.string.isRequired
+  
 };
 
 export default EmptyChatPlaceholder;
