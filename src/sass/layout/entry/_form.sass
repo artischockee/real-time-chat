@@ -1,0 +1,86 @@
+.entry-form
+  @extend %flex-col-wrap
+  align-items: center
+  margin: 2em 0
+  z-index: 1
+
+  &__form-wrapper
+    @extend %flex-col-wrap
+    align-items: center
+    height: 100%
+    opacity: 1
+    transition-duration: 250ms
+    transition-property: visibility, opacity
+    transition-timing-function: ease-out
+    visibility: visible
+
+    &_fade-out
+      opacity: 0
+      visibility: hidden
+
+  &__loading-wrapper
+    @extend %flex-col-nowrap
+    align-items: center
+    height: 100%
+    justify-content: center
+    opacity: 0
+    transition: opacity 250ms ease-out
+
+    &_fade-in
+      opacity: 1
+
+    .inscription
+      color: $cl-black-l2
+      margin: 0
+      margin-bottom: 1em
+
+    .spinner
+      align-items: center
+      display: flex
+      height: 4em
+      justify-content: center
+      width: 4em
+
+      &::after
+        animation: spinner 1s linear infinite
+        border: .25em solid
+        border-color: $cl-black-l3 transparent
+        border-radius: 50%
+        content: ''
+        display: block
+        height: 50%
+        width: 50%
+
+  &__title
+    color: $cl-black-l3
+    font-size: 1.75em
+    font-weight: 500
+    line-height: 1.5
+    margin: 0
+    margin-bottom: 1em
+    text-align: center
+
+  &__form
+    @extend %flex-col-wrap
+
+  .submit
+    align-self: center
+    background-color: transparent
+    border: .125em solid $cl-black-l3
+    border-radius: 1.5em
+    color: $cl-black-l3
+    cursor: pointer
+    font-family: $font-stack
+    font-size: 1em
+    font-weight: 500
+    margin-top: auto
+    outline: none
+    padding: .8em 2em
+    transition:
+      duration: 400ms
+      property: border-color, color
+      timing-function: ease-out
+
+    &:hover
+      border-color: $cl-primary
+      color: $cl-primary

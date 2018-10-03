@@ -1,0 +1,87 @@
+.msg-delete-dialog
+  background-color: white
+  border-radius: .25em
+  box-shadow: 0 .125em .5em $cl-shadow-light
+  overflow: hidden
+  width: 24em
+
+  &__title
+    background-color: $cl-primary
+    color: white
+    display: flex
+    justify-content: space-between
+    padding: 1em
+
+  .button
+    &__svg
+      fill: currentColor
+      height: 1.25em
+      pointer-events: none
+      width: 1.25em
+
+  .title
+    &__text
+      font-size: .9em
+      font-weight: 500
+      margin: 0
+
+    &__button
+      align-items: center
+      background-color: transparent
+      border: none
+      color: currentColor
+      cursor: pointer
+      display: flex
+      outline: none
+      padding: 0 .5em
+
+  &__body
+    color: $cl-black-l2
+    padding: 1em
+
+  .body
+    &__text
+      font-size: .9em
+      margin: 0
+      margin-bottom: .5em
+
+      &:last-of-type
+        margin-bottom: 0
+
+    &__span
+      font-size: 1em
+
+      &_bold
+        font-weight: 600
+
+  &__controls
+    border-top: .0625em solid $cl-gray-l3
+    display: flex
+    justify-content: flex-end
+    padding: .75em 1em
+
+  .controls
+    &__button
+      background-color: transparent
+      border: none
+      border-radius: .3em
+      cursor: pointer
+      font-family: $font-stack
+      line-height: 1.75
+      margin-right: .75em
+      outline: none
+      padding: .25em .75em
+      transition: background-color 100ms ease-out
+
+      &:hover
+        background-color: $cl-white-d1
+
+      &:last-of-type
+        margin-right: 0
+
+      &_primary
+        background-color: $cl-primary
+        color: white
+
+        &:hover
+          background-color: $cl-primary-l1

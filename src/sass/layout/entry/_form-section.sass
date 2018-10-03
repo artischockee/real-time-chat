@@ -1,0 +1,70 @@
+.form-section
+  @extend %flex-col-wrap
+  margin-bottom: 2em
+
+  &:last-of-type
+    margin-bottom: 3em
+
+  &__label
+    align-self: baseline
+    color: lighten($cl-black-l2, 40%)
+    font-size: 1em
+    left: 1em
+    line-height: 1.5
+    margin-top: 0
+    pointer-events: none
+    position: relative
+    top: 1.8em
+    transition-duration: 250ms
+    transition-property: top, left, color
+    transition-timing-function: ease-out
+
+    &_replaced
+      color: $cl-black-l2
+      left: 0
+      top: 0
+
+    &_highlighted
+      color: $color-hlight-red
+
+    .span-optional
+      color: lighten($cl-black-l2, 55%)
+      font-size: .9em
+      font-style: italic
+
+      &::before
+        content: '- '
+
+  &__input
+    background-color: transparent
+    border: none
+    border-bottom: .0625em solid lighten($cl-black-l2, 50%)
+    box-sizing: border-box
+    color: $cl-black-l3
+    font-size: 1.25em
+    line-height: 1
+    outline: none
+    padding: .25em .75em .5em
+    transition: border-bottom-color 250ms ease-out
+    width: 100%
+
+    &:focus
+      border-bottom-color: $cl-black-l2
+
+    &_highlighted
+      border-bottom-color: $color-hlight-red
+
+  // &__description
+  //   @extend %reset-margin-padding
+  //   color: lighten($cl-black-l2, 50%)
+  //   display: inline-flex
+  //   font-size: .9em
+  //   margin-top: .75em
+  //   max-width: 24em
+  //   transition: color 250ms ease-out
+  //
+  //   &_highlighted
+  //     color: lighten($color-hlight-red, 15%)
+  //
+  //   &_empty
+  //     margin: 0
