@@ -40,17 +40,15 @@
 
       &__info-wrapper
         @extend %flex-col-nowrap
-        flex: auto
         justify-content: center
+        overflow: hidden
 
       &__name, &__sign
         font-size: .9em
         margin: 0
-        width: 12em
-
-        white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
+        white-space: nowrap
 
       &__name
         color: $cl-black-l1
