@@ -18,9 +18,6 @@ const FormSection = props => {
         required={props.isRequired}
       />
 
-      {/* <p className={props.descriptionClassList}>
-        {props.description}
-      </p> */}
     </div>
   );
 };

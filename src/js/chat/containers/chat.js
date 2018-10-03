@@ -64,8 +64,6 @@ export default class ChatContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('Chat updated.');
-
     if (
       prevProps.messages !== this.props.messages
       && this.props.messages[this.props.messages.length - 1].id !== this.props.clientID

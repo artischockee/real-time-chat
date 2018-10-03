@@ -10,10 +10,6 @@ const LIST_ITEMS_DATA = [
 
 @autobind
 export default class EntryHeaderContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   getListItems() {
     return LIST_ITEMS_DATA.map((item, index) => {
       return (

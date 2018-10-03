@@ -5,10 +5,6 @@ import { DIALOG_BUTTONS } from '../../auxiliary/button-names';
 
 @autobind
 export default class MsgDeleteDialogContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleClick(event) {
     switch (event.target.name) {
       case DIALOG_BUTTONS.CLOSE:
@@ -19,10 +15,6 @@ export default class MsgDeleteDialogContainer extends React.Component {
         this.props.handleDeleteAccept();
         break;
     }
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('MsgDeleteDialog updated.');
   }
 
   render() {

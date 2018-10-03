@@ -32,10 +32,6 @@ export default class SidePanelContainer extends React.Component {
       return null;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('SidePanel updated.');
-  }
-
   render() {
     return (
       <SidePanel

@@ -4,10 +4,6 @@ import User from '../components/user';
 
 @autobind
 export default class UserContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   getSignElement() {
     if (this.props.sign === '')
       return null;

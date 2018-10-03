@@ -16,8 +16,4 @@ const EmptyChatPlaceholder = props => {
   );
 };
 
-EmptyChatPlaceholder.propTypes = {
-  
-};
-
 export default EmptyChatPlaceholder;

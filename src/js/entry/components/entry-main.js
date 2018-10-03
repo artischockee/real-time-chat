@@ -32,11 +32,6 @@ const EntryMain = props => {
             labelValue="Sign"
           />
 
-          {/* <div className="form-section">
-                <label className="form-section__label" htmlFor="input-image">Image</label>
-                <input form="entry-form-form" type="file" accept="image/*" id="input-image" />
-            </div> */}
-
           <input className="submit" form="entry-form" type="submit" value="Log in" onClick={props.handleConnect} />
 
         </form>
