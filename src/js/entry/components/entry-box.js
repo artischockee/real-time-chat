@@ -20,7 +20,9 @@ const EntryBox = props => {
 };
 
 EntryBox.propTypes = {
-  
+  handleConnect: PropTypes.func.isRequired,
+  handleLogInInputChange: PropTypes.func.isRequired,
+  userData: PropTypes.object
 };
 
 export default EntryBox;

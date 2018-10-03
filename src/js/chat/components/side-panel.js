@@ -31,7 +31,11 @@ const SidePanel = props => {
 };
 
 SidePanel.propTypes = {
-
+  classList: PropTypes.string.isRequired,
+  handleSearchChange: PropTypes.func.isRequired,
+  noSearchMatchesElement: PropTypes.object,
+  searchValue: PropTypes.string,
+  userList: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default SidePanel;

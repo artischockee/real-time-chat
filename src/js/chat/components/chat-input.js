@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-
-
 import { CHAT_BUTTONS } from '../../auxiliary/button-names';
 
 const ChatInput = props => {
@@ -23,7 +20,7 @@ const ChatInput = props => {
           className="input-wrapper__input"
           onChange={props.handleMsgBoxChange}
           onKeyUp={props.handleMsgBoxKeyUp}
-          placeholder={props.placeholder}
+          placeholder="type a message"
           type="text"
           value={props.messageValue}
         />
@@ -42,7 +39,10 @@ const ChatInput = props => {
 };
 
 ChatInput.propTypes = {
-
+  handleControlClick: PropTypes.func, // non required due to absence of functionality
+  handleMsgBoxChange: PropTypes.func.isRequired,
+  handleMsgBoxKeyUp: PropTypes.func.isRequired,
+  messageValue: PropTypes.string
 };
 
 export default ChatInput;
