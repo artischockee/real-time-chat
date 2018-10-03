@@ -1,7 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 import ChatBox from '../components/chat-box';
-import EmptyChatPlaceholderContainer from './empty-chat-placeholder';
+import EmptyChatPlaceholder from '../components/empty-chat-placeholder';
 import UserMessagesContainer from './user-messages';
 
 function alignTimeValue(timeValue) {
@@ -35,7 +35,7 @@ export default class ChatBoxContainer extends React.Component {
     if (this.props.messages.length !== 0)
       return null;
 
-    return <EmptyChatPlaceholderContainer />;
+    return <EmptyChatPlaceholder />;
   }
 
   getMessages() {

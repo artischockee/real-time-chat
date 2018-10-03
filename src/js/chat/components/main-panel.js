@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ChatControlsContainer from '../containers/chat-controls';
 import ChatBoxContainer from '../containers/chat-box';
-import ChatInputContainer from '../containers/chat-input';
+import ChatInput from '../components/chat-input';
 
 const MainPanel = props => {
   return (
@@ -19,7 +19,7 @@ const MainPanel = props => {
         messages={props.messages}
       />
 
-      <ChatInputContainer
+      <ChatInput
         handleMsgBoxChange={props.handleMsgBoxChange}
         handleMsgBoxKeyUp={props.handleMsgBoxKeyUp}
         messageValue={props.messageValue}
@@ -30,7 +30,14 @@ const MainPanel = props => {
 };
 
 MainPanel.propTypes = {
-
+  clientID: PropTypes.number.isRequired,
+  displaySidePanel: PropTypes.func.isRequired,
+  handleMsgBoxChange: PropTypes.func.isRequired,
+  handleMsgBoxKeyUp: PropTypes.func.isRequired,
+  handleMsgDelete: PropTypes.func.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.object),
+  messageValue: PropTypes.string,
+  shouldNotificationSoundPlay: PropTypes.func.isRequired
 };
 
 export default MainPanel;

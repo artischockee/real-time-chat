@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SidePanelContainer from '../containers/side-panel';
-import MainPanelContainer from '../containers/main-panel';
+import MainPanel from './main-panel';
 
 const Chat = props => {
   return (
@@ -17,7 +17,7 @@ const Chat = props => {
 
       {props.fadeComponent}
 
-      <MainPanelContainer
+      <MainPanel
         clientID={props.clientID}
         displaySidePanel={props.displaySidePanel}
         handleMsgBoxChange={props.handleMsgBoxChange}
@@ -33,6 +33,7 @@ const Chat = props => {
 };
 
 Chat.propTypes = {
+  fadeComponent: PropTypes.object,
   handleMsgBoxChange: PropTypes.func.isRequired,
   handleMsgBoxKeyUp: PropTypes.func.isRequired,
   handleMsgDelete: PropTypes.func.isRequired,
