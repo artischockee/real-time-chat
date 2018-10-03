@@ -2,11 +2,6 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 import FormSection from '../components/form-section';
 
-const OPTIONAL = {
-  en: 'Optional',
-  ru: 'Необязательно'
-};
-
 @autobind
 export default class FormSectionContainer extends React.Component {
   constructor(props) {
@@ -21,7 +16,7 @@ export default class FormSectionContainer extends React.Component {
     if (this.props.isRequired)
       return null;
     else
-      return <span className="span-optional">{OPTIONAL[this.props.lang]}</span>;
+      return <span className="span-optional">Optional</span>;
   }
 
   getDescriptionClassList() {
