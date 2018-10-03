@@ -4,14 +4,6 @@ import ChatInput from '../components/chat-input';
 
 @autobind
 export default class ChatInputContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('ChatInput updated.');
-  }
-
   render() {
     return (
       <ChatInput
