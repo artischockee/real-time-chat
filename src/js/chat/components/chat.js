@@ -8,13 +8,18 @@ const Chat = props => {
     <div className="chat">
 
       <SidePanelContainer
+        displaySidePanelOnMobile={props.displaySidePanelOnMobile}
         handleSearchChange={props.handleSearchChange}
+        isMobileVersion={props.isMobileVersion}
         searchValue={props.searchValue}
         userList={props.userList}
       />
 
+      {props.fadeComponent}
+
       <MainPanelContainer
         clientID={props.clientID}
+        displaySidePanel={props.displaySidePanel}
         handleMsgBoxChange={props.handleMsgBoxChange}
         handleMsgBoxKeyUp={props.handleMsgBoxKeyUp}
         handleMsgDelete={props.handleMsgDelete}
