@@ -11,8 +11,31 @@ export default class ChatContainer extends React.Component {
 
     this.state = {
       notificationSoundShouldPlay: true,
-      searchValue: ''
+      searchValue: '',
+      displaySidePanelOnMobile: false
     }
+  }
+
+  displaySidePanel() {
+    let displaySidePanelOnMobile = !this.state.displaySidePanelOnMobile;
+
+    this.setState({
+      displaySidePanelOnMobile
+    });
+  }
+
+  getFadeComponent() {
+    if (!this.props.isMobileVersion)
+      return null;
+
+    let classList = 'chat__fade-component';
+
+    if (this.state.displaySidePanelOnMobile)
+      classList += ` ${classList}_visible`;
+    else
+      classList += ` ${classList}_hidden`;
+
+    return <div className={classList} onClick={this.displaySidePanel}></div>;
   }
 
   getFilteredUserList() {
@@ -55,10 +78,15 @@ export default class ChatContainer extends React.Component {
     return (
       <Chat
         clientID={this.props.clientID}
+        displaySidePanel={this.displaySidePanel}
+        displaySidePanelOnMobile={this.state.displaySidePanelOnMobile}
+        fadeComponent={this.getFadeComponent()}
+        handleChatClick={this.handleChatClick}
         handleMsgBoxChange={this.props.handleMsgBoxChange}
         handleMsgBoxKeyUp={this.props.handleMsgBoxKeyUp}
         handleMsgDelete={this.props.handleMsgDelete}
         handleSearchChange={this.handleSearchChange}
+        isMobileVersion={this.props.isMobileVersion}
         lang={this.props.lang}
         messages={this.props.messages}
         messageValue={this.props.messageValue}
