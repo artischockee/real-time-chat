@@ -6,7 +6,7 @@ import SVGThreeDots from '../../svg-components/three-dots';
 
 const SidePanel = props => {
   return (
-    <section className="chat__side-panel">
+    <section className={props.classList}>
 
       <div className="side-panel__search-container">
         <div className="search-wrapper">
