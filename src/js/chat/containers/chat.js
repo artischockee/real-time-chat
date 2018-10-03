@@ -87,7 +87,6 @@ export default class ChatContainer extends React.Component {
         handleMsgDelete={this.props.handleMsgDelete}
         handleSearchChange={this.handleSearchChange}
         isMobileVersion={this.props.isMobileVersion}
-        lang={this.props.lang}
         messages={this.props.messages}
         messageValue={this.props.messageValue}
         searchValue={this.state.searchValue}

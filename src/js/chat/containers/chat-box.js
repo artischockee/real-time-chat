@@ -35,11 +35,7 @@ export default class ChatBoxContainer extends React.Component {
     if (this.props.messages.length !== 0)
       return null;
 
-    return (
-      <EmptyChatPlaceholderContainer
-        lang={this.props.lang}
-      />
-    );
+    return <EmptyChatPlaceholderContainer />;
   }
 
   getMessages() {

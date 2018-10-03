@@ -34,9 +34,7 @@ export default class EntryContainer extends React.Component {
       <Entry
         classList={this.getClassList()}
         handleConnect={this.handleConnect}
-        handleLangChange={this.props.handleLangChange}
         handleLogInInputChange={this.props.handleLogInInputChange}
-        lang={this.props.lang}
         userData={this.props.userData}
       />
     );

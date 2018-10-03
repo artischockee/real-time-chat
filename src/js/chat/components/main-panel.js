@@ -16,7 +16,6 @@ const MainPanel = props => {
 
       <ChatBoxContainer
         clientID={props.clientID}
-        lang={props.lang}
         messages={props.messages}
       />
 

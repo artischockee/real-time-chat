@@ -13,7 +13,6 @@ export default class EntryBoxContainer extends React.Component {
       <EntryBox
         handleConnect={this.props.handleConnect}
         handleLogInInputChange={this.props.handleLogInInputChange}
-        lang={this.props.lang}
         userData={this.props.userData}
       />
     );

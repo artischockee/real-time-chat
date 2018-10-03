@@ -12,7 +12,6 @@ export default class MainPanelContainer extends React.Component {
         handleMsgBoxChange={this.props.handleMsgBoxChange}
         handleMsgBoxKeyUp={this.props.handleMsgBoxKeyUp}
         handleMsgDelete={this.props.handleMsgDelete}
-        lang={this.props.lang}
         messages={this.props.messages}
         messageValue={this.props.messageValue}
         shouldNotificationSoundPlay={this.props.shouldNotificationSoundPlay}

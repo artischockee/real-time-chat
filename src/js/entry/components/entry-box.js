@@ -7,12 +7,11 @@ const EntryBox = props => {
   return (
     <div className="entry__box-wrapper">
 
-      <EntryHeaderContainer lang={props.lang} />
+      <EntryHeaderContainer />
 
       <EntryMainContainer
         handleConnect={props.handleConnect}
         handleInputChange={props.handleLogInInputChange}
-        lang={props.lang}
         userData={props.userData}
       />
 
@@ -21,7 +20,7 @@ const EntryBox = props => {
 };
 
 EntryBox.propTypes = {
-  lang: PropTypes.string.isRequired
+  
 };
 
 export default EntryBox;
