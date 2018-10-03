@@ -7,7 +7,7 @@ const EntryMain = props => {
     <div className="entry-main">
       <div className="entry-form">
         <h1 className="entry-form__title">
-          {props.title}
+          Log in to continue
         </h1>
 
         <form id="entry-form" className="entry-form__form">
@@ -19,8 +19,7 @@ const EntryMain = props => {
             inputType="text"
             inputValue={props.loginValue}
             isRequired={props.loginData.isRequired}
-            lang={props.lang}
-            labelValue={props.loginLabel}
+            labelValue="Login"
           />
 
           <FormSectionContainer
@@ -30,8 +29,7 @@ const EntryMain = props => {
             inputType="text"
             inputValue={props.signValue}
             isRequired={props.signData.isRequired}
-            lang={props.lang}
-            labelValue={props.signLabel}
+            labelValue="Sign"
           />
 
           {/* <div className="form-section">
@@ -39,7 +37,7 @@ const EntryMain = props => {
                 <input form="entry-form-form" type="file" accept="image/*" id="input-image" />
             </div> */}
 
-          <input className="submit" form="entry-form" type="submit" value={props.submit} onClick={props.handleConnect} />
+          <input className="submit" form="entry-form" type="submit" value="Log in" onClick={props.handleConnect} />
 
         </form>
       </div>
@@ -50,15 +48,10 @@ const EntryMain = props => {
 EntryMain.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleConnect: PropTypes.func.isRequired,
-  lang: PropTypes.string.isRequired,
   loginData: PropTypes.object.isRequired,
-  loginLabel: PropTypes.string.isRequired,
   loginValue: PropTypes.string.isRequired,
   signData: PropTypes.object.isRequired,
-  signLabel: PropTypes.string.isRequired,
-  signValue: PropTypes.string.isRequired,
-  submit: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  signValue: PropTypes.string.isRequired
 };
 
 export default EntryMain;
