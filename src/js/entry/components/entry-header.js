@@ -5,8 +5,10 @@ import SVGLogo from '../../svg-components/logo';
 const EntryHeader = props => {
   return (
     <div className="entry-header">
-      <SVGLogo className="entry-header__logo" />
-      <h1 className="entry-header__title">Real-time chat</h1>
+      <div className="entry-header__logotitle-wrapper">
+        <SVGLogo className="entry-header__logo" />
+        <h1 className="entry-header__title">Real-time chat</h1>
+      </div>
       <ul className="entry-header__list">
         {props.listItems}
       </ul>
