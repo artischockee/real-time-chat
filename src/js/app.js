@@ -6,6 +6,7 @@ import ChatContainer from './chat/containers/chat';
 import MsgDeleteDialogContainer from './dialogs/containers/msg-delete-dialog';
 import { LANGUAGE } from './auxiliary/language';
 import { WS_STATES, CALLBACK_STATE } from './auxiliary/states';
+import throttle from './auxiliary/throttle';
 
 const HOSTNAME = window.location.hostname;
 const PORT = window.location.port;
@@ -32,12 +33,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.throttleHandler = throttle(1000, this.windowEventsHandler);
+
     this.state = {
       chatMessages: [],
       connection: null,
       clientID: 0,
       currentFragment: FRAGMENTS.ENTRY,
       displayMsgDeleteDialog: false,
+      isMobileVersion: false,
       language: LANGUAGE.EN.SHORT,
       message: '',
       usersOnline: [],
@@ -188,8 +192,21 @@ class App extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('App updated.');
+  windowEventsHandler() {
+    let isMobileVersion = document.body.clientWidth <= 860;
+
+    this.setState({ isMobileVersion });
+  }
+
+  componentDidMount() {
+    // Run windowEventsHandler() to specify the clientWidth
+    this.windowEventsHandler();
+
+    window.addEventListener('resize', this.throttleHandler);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.throttleHandler);
   }
 
   render() {
@@ -215,6 +232,7 @@ class App extends React.Component {
               handleMsgBoxChange={this.handleMsgBoxChange}
               handleMsgBoxKeyUp={this.handleMsgBoxKeyUp}
               handleMsgDelete={this.toggleMsgDeleteDialog}
+              isMobileVersion={this.state.isMobileVersion}
               lang={this.state.language}
               messages={this.state.chatMessages}
               messageValue={this.state.message}
