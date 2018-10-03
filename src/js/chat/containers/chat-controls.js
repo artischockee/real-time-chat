@@ -34,6 +34,9 @@ export default class ChatControlsContainer extends React.Component {
 
   handleClick(event) {
     switch (event.target.name) {
+      case CHAT_BUTTONS.MENU:
+        this.props.displaySidePanel();
+        break;
       case CHAT_BUTTONS.NOTIFICATIONS:
         this.switchNotificationIcon();
         break;
@@ -41,10 +44,6 @@ export default class ChatControlsContainer extends React.Component {
         this.props.handleMsgDelete();
         break;
     }
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('ChatControls updated.');
   }
 
   render() {
