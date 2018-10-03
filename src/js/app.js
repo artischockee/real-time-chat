@@ -4,7 +4,6 @@ import { hot } from 'react-hot-loader';
 import EntryContainer from './entry/containers/entry';
 import ChatContainer from './chat/containers/chat';
 import MsgDeleteDialogContainer from './dialogs/containers/msg-delete-dialog';
-import { LANGUAGE } from './auxiliary/language';
 import { WS_STATES, CALLBACK_STATE } from './auxiliary/states';
 import throttle from './auxiliary/throttle';
 
@@ -42,7 +41,6 @@ class App extends React.Component {
       currentFragment: FRAGMENTS.ENTRY,
       displayMsgDeleteDialog: false,
       isMobileVersion: false,
-      language: LANGUAGE.EN.SHORT,
       message: '',
       usersOnline: [],
       userData: {
@@ -50,16 +48,6 @@ class App extends React.Component {
         sign: ''
       }
     };
-  }
-
-  handleLangChange(language) {
-    switch (language) {
-      case undefined:
-      case null:
-        return;
-    }
-
-    this.setState({ language });
   }
 
   applyLoginBoxData() {
@@ -215,9 +203,7 @@ class App extends React.Component {
         return (
           <EntryContainer
             handleConnect={this.connect}
-            handleLangChange={this.handleLangChange}
             handleLogInInputChange={this.handleLogInInputChange}
-            lang={this.state.language}
             userData={this.state.userData}
           />
         );
@@ -233,7 +219,6 @@ class App extends React.Component {
               handleMsgBoxKeyUp={this.handleMsgBoxKeyUp}
               handleMsgDelete={this.toggleMsgDeleteDialog}
               isMobileVersion={this.state.isMobileVersion}
-              lang={this.state.language}
               messages={this.state.chatMessages}
               messageValue={this.state.message}
               userList={this.state.usersOnline}
