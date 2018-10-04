@@ -1,6 +1,10 @@
 @media only screen and (max-width: 1068px)
+  .body
+    min-height: unset
+
   #root
     background-image: none
+    justify-content: stretch
 
   .chat
     box-shadow: none
@@ -9,7 +13,6 @@
     max-width: none
     width: 100%
 
-@media only screen and (max-width: 960px)
   .entry
     max-width: none
     width: 100%
@@ -44,6 +47,48 @@
     &__control-button_menu
       display: flex
 
+@media only screen and (max-width: 768px) and (max-height: 1024px)
+  .entry
+    height: 100%
+
+    &__box-wrapper
+      display: flex
+      flex-direction: column
+      height: inherit
+
+      .entry-main
+        flex: auto
+        justify-content: center
+
+@media only screen and (orientation: landscape) and (max-width: 736px) and (max-height: 414px)
+  .entry-form
+    flex-direction: row
+    justify-content: space-around
+    margin: 0
+
+    &__title
+      font-size: 1.5em
+      margin: 0
+
+    .form-section
+      margin-bottom: 1.5em
+
+@media only screen and (orientation: landscape) and (max-width: 812px) and (max-height: 375px)
+  .entry-header__logo
+    height: 1.75em
+    width: 1.75em
+
+  .entry-form
+    flex-direction: row
+    justify-content: space-around
+    margin: 1em 0
+
+    &__title
+      font-size: 1.5em
+      margin: 0
+
+    .form-section
+      margin-bottom: 1.5em
 
 @media only screen and (max-width: 600px)
   .entry-header__title
