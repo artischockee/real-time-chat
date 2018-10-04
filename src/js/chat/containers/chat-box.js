@@ -19,7 +19,6 @@ function assemblyMessageDate(rawDate) {
   return `${hours}:${minutes}`;
 }
 
-<<<<<<< HEAD:src/js/main/containers/chat.js
 const TITLE = {
   en: 'Chat',
   ru: 'Чат'
@@ -45,8 +44,6 @@ const EMPTY_CHAT_PLACEHOLDER = {
   ru: 'Сообщения чата будут показаны здесь.'
 };
 
-=======
->>>>>>> redesign:src/js/chat/containers/chat-box.js
 @autobind
 export default class ChatBoxContainer extends React.Component {
   constructor(props) {
@@ -63,30 +60,7 @@ export default class ChatBoxContainer extends React.Component {
     if (this.props.messages.length !== 0)
       return null;
 
-<<<<<<< HEAD:src/js/main/containers/chat.js
-  getEmptyChatPlaceholder() {
-    if (
-      this.props.messages === undefined
-      || this.props.messages.length == 0
-    ) {
-      return (
-        <div className="empty-chat-placeholder">
-          <img
-            alt={CHAT_ICON_ALT[this.props.lang]}
-            className="empty-chat-placeholder__icon"
-            src="images/chat.svg"
-          />
-          <p className="empty-chat-placeholder__text">
-            {EMPTY_CHAT_PLACEHOLDER[this.props.lang]}
-          </p>
-        </div>
-      );
-    }
-
-    return null;
-=======
     return <EmptyChatPlaceholder />;
->>>>>>> redesign:src/js/chat/containers/chat-box.js
   }
 
   getMessages() {
